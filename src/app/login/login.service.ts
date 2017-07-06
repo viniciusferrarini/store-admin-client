@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {Observable} from 'rxjs/Rx';
+import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import 'rxjs/add/operator/map';
+import 'rxjs/Rx';
 
 @Injectable()
 export class LoginService implements CanActivate {
@@ -31,12 +31,12 @@ export class LoginService implements CanActivate {
     });
     const requestOptions = new RequestOptions({ headers: headers });
 
-    this.http.post("http://localhost:7997/login", data, requestOptions)
+    this.http.post("http://localhost:7990/login", data, requestOptions)
       .map(res => res)
       .subscribe(res => {
         localStorage.setItem(this.JWT_KEY, res.text());
         this.isLoggedIn.next(true);
-        this.goTo("/home");
+        this.goTo("/dashboard");
         return res;
       }, error => callbackError());
   }

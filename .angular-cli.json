@@ -23,12 +23,17 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/primeng/resources/primeng.min.css",
-        "../node_modules/primeng/resources/themes/bootstrap/theme.css",
-        "template.css"
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "assets/css/menu.css",
+        "assets/css/template.css",
+        "assets/css/helper.css",
+        "assets/css/reset.css"
+
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "assets/js/menu.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -60,6 +65,7 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {
+    }
   }
 }

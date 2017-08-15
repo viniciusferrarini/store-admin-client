@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {LoginService} from "../login/login.service";
+import {LoginService} from "../service/login.service";
+import {User} from "../model/User";
 
 @Component({
   selector: 'app-nav',

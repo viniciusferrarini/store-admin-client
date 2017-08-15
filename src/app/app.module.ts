@@ -1,40 +1,43 @@
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
-
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {LoginService} from "./service/login.service";
+import {UserService} from "./service/user.service";
+import {HttpService} from "./service/http.service";
 import {AppComponent} from "./app.component";
-
-import {routing} from "./routes/routes";
-import {CommonModule} from "@angular/common";
-import {BrowserModule} from "@angular/platform-browser";
-import {LoginModule} from "./login/login.module";
-import {LoginService} from "./login/login.service";
-import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home/home.component";
-import { MenuComponent } from './menu/menu.component';
-import { NavComponent } from './nav/nav.component';
-import { ProductComponent } from './product/product.component';
+import {LoginComponent} from "./login/login.component";
+import {AppRoutingModule} from "./routes/app.routing.module";
+import {MenuComponent} from "./menu/menu.component";
+import {NavComponent} from "./nav/nav.component";
+import {DashboardModule} from "./dashboard/dashboard.module";
+import {ProductModule} from "./product/product.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     HomeComponent,
+    LoginComponent,
     MenuComponent,
-    NavComponent,
-    ProductComponent
+    NavComponent
   ],
   imports: [
     BrowserModule,
-    CommonModule,
     FormsModule,
     HttpModule,
-    LoginModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
-    routing
+    DashboardModule,
+    ProductModule
   ],
-  providers: [LoginService],
+  providers: [
+    HttpService,
+    LoginService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

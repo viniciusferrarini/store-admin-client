@@ -4,7 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LoginService} from "./service/login.service";
-import {UserService} from "./service/user.service";
+import {UserService} from "./user/user.service";
 import {HttpService} from "./service/http.service";
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
@@ -14,6 +14,9 @@ import {MenuComponent} from "./menu/menu.component";
 import {NavComponent} from "./nav/nav.component";
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {ProductModule} from "./product/product.module";
+import {MensagemService} from "./growl/mensagem.service";
+import {MensagemModule} from "./growl/mensagem.module";
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import {ProductModule} from "./product/product.module";
     HomeComponent,
     LoginComponent,
     MenuComponent,
-    NavComponent
+    NavComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -30,12 +34,14 @@ import {ProductModule} from "./product/product.module";
     AppRoutingModule,
     BrowserAnimationsModule,
     DashboardModule,
-    ProductModule
+    ProductModule,
+    MensagemModule
   ],
   providers: [
     HttpService,
     LoginService,
-    UserService
+    UserService,
+    MensagemService
   ],
   bootstrap: [AppComponent]
 })

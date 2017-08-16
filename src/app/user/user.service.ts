@@ -1,8 +1,8 @@
-import {CrudService} from "./crud.service";
-import {User} from "../model/user";
+import {CrudService} from "../service/crud.service";
+import {User} from "./user";
 import {environment} from "../../environments/environment";
 import {Injectable} from "@angular/core";
-import {HttpService} from "./http.service";
+import {HttpService} from "../service/http.service";
 
 @Injectable()
 export class UserService extends CrudService<User, number> {

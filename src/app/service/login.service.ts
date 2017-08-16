@@ -3,10 +3,11 @@ import {Headers, Http, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import {environment} from "../../environments/environment";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {User} from "../model/user";
+import {User} from "../user/user";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 import {HttpService} from "./http.service";
+import {MensagemService} from "../growl/mensagem.service";
 
 @Injectable()
 export class LoginService implements CanActivate {
@@ -16,7 +17,8 @@ export class LoginService implements CanActivate {
 
   constructor(private router: Router,
               private httpA: Http,
-              private http: HttpService) {
+              private http: HttpService,
+              private mensagemService: MensagemService) {
     this.isLoggedIn = new Subject<Boolean>();
   }
 
@@ -37,6 +39,7 @@ export class LoginService implements CanActivate {
   }
 
   login(email, password): Promise<void> {
+
     const params = new URLSearchParams();
     params.append('username', email);
     params.append('password', password);
@@ -44,7 +47,7 @@ export class LoginService implements CanActivate {
 
     const headers = new Headers({
       'Content-type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + btoa("app:app")
+      'Authorization': 'Basic YXBwOmFwcA==' /*+ btoa("app:app")*/
     });
     const options = new RequestOptions({headers: headers});
 
@@ -56,7 +59,9 @@ export class LoginService implements CanActivate {
         this.saveToken(e.json());
         this.setUser();
       })
-      .catch(this.handleError);
+      .catch(() => {
+        this.mensagemService.send("error", "Erro ao realizar login", "Usuário ou senha inválidos");
+      });
   }
 
   saveToken(token) {
@@ -67,11 +72,28 @@ export class LoginService implements CanActivate {
     const url = `${environment.proxy}/user/userLogged`;
     this.http.get(url)
       .toPromise()
-      .then(response => this.subjectUser.next(response.json() as User));
+      .then(response => {
+        this.subjectUser.next(response.json() as User)
+      })
+      .catch(() => {
+        console.log("não foi possível buscar o usuario logado");
+      });
   }
 
   getUser(): Observable<User> {
     return this.subjectUser.asObservable();
+  }
+
+  getUserLogado(): any {
+    const url = `${environment.proxy}/user/userLogged`;
+    this.http.get(url)
+      .toPromise()
+      .then(response => {
+        return response.json().result;
+      })
+      .catch(() => {
+        console.log("não foi possível buscar o usuario logado");
+      });
   }
 
   logout() {

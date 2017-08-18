@@ -38,14 +38,6 @@
                    name="password"
                    placeholder="Senha"/>
           </div>
-
-          <div class="input-group">
-            <div class="checkbox" style="margin-top: 0px;">
-              <label>
-                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-              </label>
-            </div>
-          </div>
           <button class="btn btn-default round btn-md" [disabled]="!loginForm.form.valid" (click)="login(user)">
             Acessar
           </button>

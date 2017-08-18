@@ -18,5 +18,6 @@ export class AppComponent implements OnInit {
     this.loginService.setUser();
     this.loginService.getUser().subscribe(e => this.user = e);
   }
+
 }
 

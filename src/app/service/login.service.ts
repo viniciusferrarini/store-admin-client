@@ -84,20 +84,9 @@ export class LoginService implements CanActivate {
     return this.subjectUser.asObservable();
   }
 
-  getUserLogado(): any {
-    const url = `${environment.proxy}/user/userLogged`;
-    this.http.get(url)
-      .toPromise()
-      .then(response => {
-        return response.json().result;
-      })
-      .catch(() => {
-        console.log("não foi possível buscar o usuario logado");
-      });
-  }
-
   logout() {
     localStorage.removeItem('access_token');
+    this.isLoggedIn.next(false);
     this.router.navigate(['/login']);
   }
 

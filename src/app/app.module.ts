@@ -16,7 +16,8 @@ import {DashboardModule} from "./dashboard/dashboard.module";
 import {ProductModule} from "./product/product.module";
 import {MensagemService} from "./growl/mensagem.service";
 import {MensagemModule} from "./growl/mensagem.module";
-import { UserComponent } from './user/user.component';
+import {UserComponent} from './user/user.component';
+import {CategoryModule} from "./category/category.module";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UserComponent } from './user/user.component';
     BrowserAnimationsModule,
     DashboardModule,
     ProductModule,
-    MensagemModule
+    MensagemModule,
+    CategoryModule
   ],
   providers: [
     HttpService,

@@ -4,19 +4,19 @@ import {LoginComponent} from "../login/login.component";
 import {LoginService} from "../service/login.service";
 import {HomeComponent} from "../home/home.component";
 import {DashboardComponent} from "../dashboard/dashboard.component";
+import {ProductComponent} from "../product/product.component";
+import {CategoryComponent} from "../category/category.component";
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-
   {path: '', canActivate: [LoginService], children: [
-    {path: '', children: [
-      {path: 'home', component: HomeComponent},
-      {path: 'dashboard', component: DashboardComponent}
-    ]}
+    {path: 'home', component: HomeComponent},
+    {path: 'dashboard', component: DashboardComponent},
+    {path: 'product', component: ProductComponent},
+    {path: 'category', component: CategoryComponent}
   ]}
-
 ];
 
 @NgModule({

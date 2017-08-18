@@ -12,15 +12,18 @@ export class NavComponent implements OnInit {
 
   @ViewChild('nav') nav: ElementRef;
 
-  private user: Observable<User>;
+  user: User;
   render: Boolean;
 
-  constructor(private loginService: LoginService) {
-    this.render = loginService.isAuthorized();
-    loginService.observableIsLoggedIn().subscribe(res => this.render = res);
-  }
+  constructor(private loginService: LoginService) {}
   ngOnInit() {
-    this.user = this.loginService.getUserLogado();
-    console.log(this.user);
+    this.render = this.loginService.isAuthorized();
+    this.loginService.observableIsLoggedIn().subscribe(res => this.render = res);
+    this.loginService.getUser().subscribe(res => this.user = res);
   }
+
+  logout() {
+    this.loginService.logout();
+  }
+
 }

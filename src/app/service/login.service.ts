@@ -74,9 +74,8 @@ export class LoginService implements CanActivate {
       .toPromise()
       .then(response => {
         this.subjectUser.next(response.json() as User)
-      })
-      .catch(() => {
-        console.log("não foi possível buscar o usuario logado");
+      }).catch(() => {
+        this.logout();
       });
   }
 

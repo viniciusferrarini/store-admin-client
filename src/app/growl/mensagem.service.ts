@@ -6,6 +6,8 @@ import {MensagemParams} from "./mensagem.params";
 @Injectable()
 export class MensagemService {
 
+  constructor() {}
+
   subject: Subject<MensagemParams> = new Subject<MensagemParams>();
 
   send(type: string, msg: string, desc: string) {

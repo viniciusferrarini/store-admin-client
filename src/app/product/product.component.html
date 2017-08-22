@@ -1,103 +1,82 @@
-<div class="portlet"><!-- /primary heading -->
-  <div class="portlet-heading">
-    <h3 class="portlet-title text-dark text-uppercase">
-      Produtos
-    </h3>
-    <div class="portlet-widgets">
-      <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
-      <span class="divider"></span>
-      <a data-toggle="collapse" data-parent="#accordion1" href="#portlet2"><i class="ion-minus-round"></i></a>
-      <span class="divider"></span>
-      <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
-    </div>
-    <div class="clearfix"></div>
+<div class="page-title">
+  <h3 class="title">Produtos</h3>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><strong>Lista de Produtos</strong></h3>
+    <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
   </div>
-  <div id="portlet2" class="panel-collapse collapse in">
-    <div class="portlet-body">
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Project Name</th>
-            <th>Start Date</th>
-            <th>Due Date</th>
-            <th>Status</th>
-            <th>Assign</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>1</td>
-            <td>Velonic Admin v1</td>
-            <td>01/01/2015</td>
-            <td>26/04/2015</td>
-            <td><span class="label label-info">Released</span></td>
-            <td>Coderthemes</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Velonic Frontend v1</td>
-            <td>01/01/2015</td>
-            <td>26/04/2015</td>
-            <td><span class="label label-success">Released</span></td>
-            <td>Coderthemes</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Velonic Admin v1.1</td>
-            <td>01/05/2015</td>
-            <td>10/05/2015</td>
-            <td><span class="label label-pink">Pending</span></td>
-            <td>Coderthemes</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Velonic Frontend v1.1</td>
-            <td>01/01/2015</td>
-            <td>31/05/2015</td>
-            <td><span class="label label-purple">Work in Progress</span></td>
-            <td>Coderthemes</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Velonic Admin v1.3</td>
-            <td>01/01/2015</td>
-            <td>31/05/2015</td>
-            <td><span class="label label-warning">Coming soon</span></td>
-            <td>Coderthemes</td>
-          </tr>
-
-          <tr>
-            <td>6</td>
-            <td>Velonic Admin v1.3</td>
-            <td>01/01/2015</td>
-            <td>31/05/2015</td>
-            <td><span class="label label-primary">Coming soon</span></td>
-            <td>Coderthemes</td>
-          </tr>
-
-          <tr>
-            <td>7</td>
-            <td>Velonic Admin v1.3</td>
-            <td>01/01/2015</td>
-            <td>31/05/2015</td>
-            <td><span class="label label-info">Cool</span></td>
-            <td>Coderthemes</td>
-          </tr>
-
-          <tr>
-            <td>8</td>
-            <td>Velonic Admin v1.3</td>
-            <td>01/01/2015</td>
-            <td>31/05/2015</td>
-            <td><span class="label label-warning">Coming soon</span></td>
-            <td>Coderthemes</td>
-          </tr>
-
-          </tbody>
-        </table>
+  <div class="panel-body">
+    <button class="btn btn-effect-ripple btn-info" (click)="new();"><i class="fa fa-plus"></i> Novo</button>
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; margin-top:20px;">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-effect-ripple btn-info"><i class="fa fa-search"></i></button>
+        </span>
+        <input #gb type="text" pInputText size="50" placeholder="Buscar" class="form-control">
       </div>
     </div>
+    <p-dataTable [value]="lista"
+                 [rows]="5"
+                 [paginator]="true"
+                 [pageLinks]="3"
+                 [rowsPerPageOptions]="[5,10,15]"
+                 selectionMode="single"
+                 [(selection)]="objeto"
+                 (onRowSelect)="onRowSelect()"
+                 [globalFilter]="gb"
+                 [draggable]="false">
+      <p-column field="id" header="Código"></p-column>
+      <p-column field="name" header="Nome"></p-column>
+      <p-column field="amount" header="Quantidade"></p-column>
+      <p-column field="value" header="Valor"></p-column>
+      <p-column field="description" header="Descrição"></p-column>
+    </p-dataTable>
   </div>
 </div>
+<p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [modal]="true">
+  <p-header>
+    {{acao}}
+  </p-header>
+  <div class="ui-grid ui-grid-responsive ui-fluid">
+    <div class="form-group">
+      <label for="codigo">Código</label>
+      <input class="form-control" type="text" pInputText [(ngModel)]="objeto.id" disabled id="codigo"/>
+    </div>
+    <div class="form-group">
+      <label for="name">Nome</label>
+      <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
+    </div>
+    <div class="form-group">
+      <label for="quantidade">Quantidade</label>
+      <input class="form-control" type="number" pInputText [(ngModel)]="objeto.amount" id="quantidade"/>
+    </div>
+    <div class="form-group">
+      <label for="valor">Valor</label>
+      <input class="form-control" type="number" pInputText [(ngModel)]="objeto.value" id="valor"/>
+    </div>
+    <div class="form-group">
+      <label for="valor">Valor</label>
+      <p-editor class="form-control" [(ngModel)]="objeto.description" [style]="{'height':'320px'}">
+        <p-header>
+        <span class="ql-format-group">
+            <span title="Bold" class="ql-format-button ql-bold"></span>
+            <span class="ql-format-separator"></span>
+            <span title="Italic" class="ql-format-button ql-italic"></span>
+            <span class="ql-format-separator"></span>
+            <span title="Underline" class="ql-format-button ql-underline"></span>
+            <span class="ql-format-separator"></span>
+            <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+        </span>
+        </p-header>
+      </p-editor>
+    </div>
+    <p-column field="description" header="Descrição"></p-column>
+  </div>
+  <p-footer>
+    <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
+    <button type="button" class="btn btn-effect-ripple btn-danger" (click)="remove()"><i class="fa fa-trash" aria-hidden="true"></i> Deletar</button>
+    <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
+  </p-footer>
+</p-dialog>
+

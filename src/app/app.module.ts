@@ -18,6 +18,8 @@ import {MensagemService} from "./growl/mensagem.service";
 import {MensagemModule} from "./growl/mensagem.module";
 import {UserComponent} from './user/user.component';
 import {CategoryModule} from "./category/category.module";
+import {SubCategoryModule} from "./sub-category/sub-category.module";
+import {ModelModule} from "./model/model.module";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import {CategoryModule} from "./category/category.module";
     LoginComponent,
     MenuComponent,
     NavComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,9 @@ import {CategoryModule} from "./category/category.module";
     DashboardModule,
     ProductModule,
     MensagemModule,
-    CategoryModule
+    CategoryModule,
+    SubCategoryModule,
+    ModelModule
   ],
   providers: [
     HttpService,

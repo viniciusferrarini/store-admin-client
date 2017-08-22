@@ -1,16 +1,27 @@
-import {NgModule} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {RouterModule} from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ButtonModule, DataTableModule, DialogModule, EditorModule, GrowlModule, InputTextModule,
+  SharedModule
+} from "primeng/primeng";
+import {FormsModule} from "@angular/forms";
 import {ProductComponent} from "./product.component";
+import {ProductService} from "./product.service";
 
 @NgModule({
-  declarations: [ProductComponent],
-  exports: [ProductComponent],
   imports: [
     CommonModule,
-    RouterModule
-  ]
+    ButtonModule,
+    DataTableModule,
+    SharedModule,
+    DialogModule,
+    InputTextModule,
+    FormsModule,
+    GrowlModule,
+    EditorModule
+  ],
+  declarations: [ProductComponent],
+  exports: [ProductComponent],
+  providers: [ProductService]
 })
-export class ProductModule {
-
-}
+export class ProductModule { }

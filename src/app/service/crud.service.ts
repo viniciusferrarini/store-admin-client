@@ -1,5 +1,5 @@
 ///<reference path="../../../node_modules/rxjs/add/operator/catch.d.ts"/>
-import {Model} from "../model/model";
+import {Model} from "./crud.entity";
 import {HttpService} from "./http.service";
 import 'rxjs/Rx';
 import 'rxjs/add/operator/catch';

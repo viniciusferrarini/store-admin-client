@@ -1,9 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {ButtonModule, DataTableModule, DialogModule, GrowlModule, InputTextModule, SharedModule} from "primeng/primeng";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {
+  ButtonModule,
+  DataTableModule,
+  DialogModule,
+  DropdownModule,
+  GrowlModule,
+  InputTextModule,
+  SharedModule
+} from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
 import {SubCategoryComponent} from "./sub-category.component";
 import {SubCategoryService} from "./sub-category.service";
+import {CategoryService} from "../category/category.service";
 
 @NgModule({
   imports: [
@@ -14,10 +23,11 @@ import {SubCategoryService} from "./sub-category.service";
     DialogModule,
     InputTextModule,
     FormsModule,
-    GrowlModule
+    GrowlModule,
+    DropdownModule
   ],
   declarations: [SubCategoryComponent],
   exports: [SubCategoryComponent],
-  providers: [SubCategoryService]
+  providers: [SubCategoryService, CategoryService]
 })
 export class SubCategoryModule { }

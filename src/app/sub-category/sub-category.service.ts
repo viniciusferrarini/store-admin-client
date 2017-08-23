@@ -6,7 +6,7 @@ import {MensagemService} from "../growl/mensagem.service";
 import {SubCategory} from "./sub-category";
 
 @Injectable()
-export class SubCategoryService  extends CrudService<SubCategory, number> {
+export class SubCategoryService extends CrudService<SubCategory, number> {
 
   constructor(private httpService: HttpService, mensagemService: MensagemService) {
     super(SubCategory, mensagemService);

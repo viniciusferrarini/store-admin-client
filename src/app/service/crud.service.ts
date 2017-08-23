@@ -1,12 +1,12 @@
 ///<reference path="../../../node_modules/rxjs/add/operator/catch.d.ts"/>
-import {Model} from "./crud.entity";
+import {CrudEntity} from "./crud.entity";
 import {HttpService} from "./http.service";
 import 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import {Observable} from "rxjs/Observable";
 import {MensagemService} from "../growl/mensagem.service";
 
-export abstract class CrudService<T extends Model<ID>, ID> {
+export abstract class CrudService<T extends CrudEntity<ID>, ID> {
 
   constructor(public type: any, private mensagemService: MensagemService) {}
 
@@ -23,12 +23,18 @@ export abstract class CrudService<T extends Model<ID>, ID> {
       });
   }
 
-  public findAll(): Promise<T[]> {
+  public findAll(): Observable<T[]> {
     const url = `${this.getUrl()}`;
     return this.getHttpService().get(url)
-      .toPromise()
-      .then(response => response.json() as T[])
-      .catch(this.handleError);
+      .map(res => {
+        const toReturn = [];
+        const objetos = res.json()._embedded.objetos;
+        const length = objetos.length;
+        for (let i = 0; i < length; i++) {
+          toReturn.push(Object.assign(new this.type, objetos[i]));
+        }
+        return toReturn;
+      });
   }
 
   public findOne(id: ID): Promise<T> {

@@ -6,7 +6,7 @@ import {environment} from "../../environments/environment";
 import {MensagemService} from "../growl/mensagem.service";
 
 @Injectable()
-export class CategoryService  extends CrudService<Category, number> {
+export class CategoryService extends CrudService<Category, number> {
 
   constructor(private httpService: HttpService, mensagemService: MensagemService) {
     super(Category, mensagemService);

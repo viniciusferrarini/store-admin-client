@@ -20,6 +20,7 @@ import {UserComponent} from './user/user.component';
 import {CategoryModule} from "./category/category.module";
 import {SubCategoryModule} from "./sub-category/sub-category.module";
 import {ModelModule} from "./model/model.module";
+import {CategoryService} from "./category/category.service";
 
 @NgModule({
   declarations: [

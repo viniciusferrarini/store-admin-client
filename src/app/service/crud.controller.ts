@@ -1,16 +1,16 @@
 import {OnInit} from "@angular/core";
-import {Model} from "./crud.entity";
+import {CrudEntity} from "./crud.entity";
 import {CrudService} from "./crud.service";
 import {MensagemService} from "../growl/mensagem.service";
 
-export abstract class CrudController<T extends Model<ID>, ID> implements OnInit {
+export abstract class CrudController<T extends CrudEntity<ID>, ID> implements OnInit {
 
   lista: T[] = [];
   objeto: T;
   displayEdit: Boolean = false;
   acao: string;
 
-  constructor(public crudService: CrudService<T, ID>, public mensagemService: MensagemService, public type: any) {
+  constructor(public crudService: CrudService<T, ID>, public mensagemService: MensagemService, private type: any) {
     this.objeto = new this.type;
   };
 
@@ -20,6 +20,11 @@ export abstract class CrudController<T extends Model<ID>, ID> implements OnInit 
 
   getTable() {
     this.crudService.getTable().subscribe(res => { this.lista = res});
+  }
+
+  findAll() {
+    this.crudService.getTable().subscribe(res => { this.lista = res});
+    return this.lista;
   }
 
   persist() {
@@ -44,7 +49,7 @@ export abstract class CrudController<T extends Model<ID>, ID> implements OnInit 
   new() {
     this.objeto = new this.type;
     this.displayEdit = true;
-    this.acao = "Novo cadastro";
+    this.acao = "Cadastro";
   };
 
   remove() {

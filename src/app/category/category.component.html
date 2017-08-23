@@ -1,54 +1,56 @@
-<div class="page-title">
-  <h3 class="title">Categorias</h3>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong>Lista de Categorias</strong></h3>
-    <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
+<div class="row">
+  <div class="page-title">
+    <h3 class="title">Categorias</h3>
   </div>
-  <div class="panel-body">
-    <button class="btn btn-effect-ripple btn-info" (click)="new();"><i class="fa fa-plus"></i> Novo</button>
-    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; margin-top:20px;">
-      <div class="input-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>Lista de Categorias</strong></h3>
+      <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
+    </div>
+    <div class="panel-body">
+      <button class="btn btn-effect-ripple btn-info" (click)="new();"><i class="fa fa-plus"></i> Novo</button>
+      <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none; margin-top:20px;">
+        <div class="input-group">
         <span class="input-group-btn">
           <button type="button" class="btn btn-effect-ripple btn-info"><i class="fa fa-search"></i></button>
         </span>
-        <input #gb type="text" pInputText size="50" placeholder="Buscar" class="form-control">
+          <input #gb type="text" pInputText size="50" placeholder="Buscar" class="form-control">
+        </div>
+      </div>
+      <p-dataTable [value]="lista"
+                   [rows]="5"
+                   [paginator]="true"
+                   [pageLinks]="3"
+                   [rowsPerPageOptions]="[5,10,15]"
+                   selectionMode="single"
+                   [(selection)]="objeto"
+                   (onRowSelect)="onRowSelect()"
+                   [globalFilter]="gb"
+                   [draggable]="false">
+        <p-column field="id" header="Código"></p-column>
+        <p-column field="name" header="Nome"></p-column>
+      </p-dataTable>
+    </div>
+  </div>
+  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [modal]="true">
+    <p-header>
+      {{acao}}
+    </p-header>
+    <div class="ui-grid ui-grid-responsive ui-fluid">
+      <div class="form-group">
+        <label for="codigo">Código</label>
+        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.id" disabled id="codigo"/>
+      </div>
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
       </div>
     </div>
-    <p-dataTable [value]="lista"
-                 [rows]="5"
-                 [paginator]="true"
-                 [pageLinks]="3"
-                 [rowsPerPageOptions]="[5,10,15]"
-                 selectionMode="single"
-                 [(selection)]="objeto"
-                 (onRowSelect)="onRowSelect()"
-                 [globalFilter]="gb"
-                 [draggable]="false">
-      <p-column field="id" header="Código"></p-column>
-      <p-column field="name" header="Nome"></p-column>
-    </p-dataTable>
-  </div>
+    <p-footer>
+      <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
+      <button type="button" class="btn btn-effect-ripple btn-danger" (click)="remove()"><i class="fa fa-trash" aria-hidden="true"></i> Deletar</button>
+      <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
+    </p-footer>
+  </p-dialog>
 </div>
-<p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [modal]="true">
-  <p-header>
-    {{acao}}
-  </p-header>
-  <div class="ui-grid ui-grid-responsive ui-fluid">
-    <div class="form-group">
-      <label for="codigo">Código</label>
-      <input class="form-control" type="text" pInputText [(ngModel)]="objeto.id" disabled id="codigo"/>
-    </div>
-    <div class="form-group">
-      <label for="name">Nome</label>
-      <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
-    </div>
-  </div>
-  <p-footer>
-    <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
-    <button type="button" class="btn btn-effect-ripple btn-danger" (click)="remove()"><i class="fa fa-trash" aria-hidden="true"></i> Deletar</button>
-    <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
-  </p-footer>
-</p-dialog>
 

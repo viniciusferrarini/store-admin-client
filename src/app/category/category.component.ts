@@ -5,6 +5,7 @@ import {CategoryService} from "./category.service";
 import {MensagemService} from "../growl/mensagem.service";
 
 @Component({
+  moduleId: module.id,
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']

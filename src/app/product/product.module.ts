@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {
-  ButtonModule, DataTableModule, DialogModule, EditorModule, GrowlModule, InputTextModule,
+  ButtonModule,
+  DataTableModule,
+  DialogModule,
+  GrowlModule,
+  InputTextareaModule,
+  InputTextModule,
   SharedModule
 } from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
@@ -18,7 +23,7 @@ import {ProductService} from "./product.service";
     InputTextModule,
     FormsModule,
     GrowlModule,
-    EditorModule
+    InputTextareaModule
   ],
   declarations: [ProductComponent],
   exports: [ProductComponent],

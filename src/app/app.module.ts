@@ -21,6 +21,8 @@ import {CategoryModule} from "./category/category.module";
 import {SubCategoryModule} from "./sub-category/sub-category.module";
 import {ModelModule} from "./model/model.module";
 import {CategoryService} from "./category/category.service";
+import { BrandComponent } from './brand/brand.component';
+import {BrandModule} from "./brand/brand.module";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import {CategoryService} from "./category/category.service";
     LoginComponent,
     MenuComponent,
     NavComponent,
-    UserComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import {CategoryService} from "./category/category.service";
     MensagemModule,
     CategoryModule,
     SubCategoryModule,
-    ModelModule
+    ModelModule,
+    BrandModule
   ],
   providers: [
     HttpService,

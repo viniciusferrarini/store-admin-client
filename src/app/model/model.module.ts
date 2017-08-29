@@ -4,6 +4,8 @@ import {ButtonModule, DataTableModule, DialogModule, GrowlModule, InputTextModul
 import {FormsModule} from "@angular/forms";
 import {ModelComponent} from "./model.component";
 import {ModelService} from "./model.service";
+import {SubCategoryService} from "../sub-category/sub-category.service";
+import {DropdownModule} from "primeng/components/dropdown/dropdown";
 
 @NgModule({
   imports: [
@@ -14,10 +16,11 @@ import {ModelService} from "./model.service";
     DialogModule,
     InputTextModule,
     FormsModule,
-    GrowlModule
+    GrowlModule,
+    DropdownModule
   ],
   declarations: [ModelComponent],
   exports: [ModelComponent],
-  providers: [ModelService]
+  providers: [ModelService, SubCategoryService]
 })
 export class ModelModule { }

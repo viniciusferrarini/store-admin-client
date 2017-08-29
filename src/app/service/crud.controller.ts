@@ -6,13 +6,11 @@ import {MensagemService} from "../growl/mensagem.service";
 export abstract class CrudController<T extends CrudEntity<ID>, ID> implements OnInit {
 
   lista: T[] = [];
-  objeto: T;
+  objeto: T = new this.type;
   displayEdit: Boolean = false;
   acao: string;
 
-  constructor(public crudService: CrudService<T, ID>, public mensagemService: MensagemService, private type: any) {
-    this.objeto = new this.type;
-  };
+  constructor(public crudService: CrudService<T, ID>, public mensagemService: MensagemService, private type: any) { };
 
   ngOnInit(): void {
     this.getTable();
@@ -20,11 +18,6 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
 
   getTable() {
     this.crudService.getTable().subscribe(res => { this.lista = res});
-  }
-
-  findAll() {
-    this.crudService.getTable().subscribe(res => { this.lista = res});
-    return this.lista;
   }
 
   persist() {
@@ -38,6 +31,7 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
       this.crudService.save(this.objeto)
         .subscribe(res => {
           const listaTemp = [...this.lista];
+          this.objeto = res;
           listaTemp.push(res);
           this.lista = listaTemp;
           this.mensagemService.send("success", "Sucesso!", "Novo registro incluído com sucesso");

@@ -8,6 +8,7 @@ import {ProductComponent} from "../product/product.component";
 import {CategoryComponent} from "../category/category.component";
 import {ModelComponent} from "../model/model.component";
 import {SubCategoryComponent} from "../sub-category/sub-category.component";
+import {BrandComponent} from "../brand/brand.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
     {path: 'product', component: ProductComponent},
     {path: 'category', component: CategoryComponent},
     {path: 'subCategory', component: SubCategoryComponent},
-    {path: 'model', component: ModelComponent}
+    {path: 'model', component: ModelComponent},
+    {path: 'brand', component: BrandComponent},
   ]}
 ];
 

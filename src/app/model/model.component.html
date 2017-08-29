@@ -29,6 +29,7 @@
                    [draggable]="false">
         <p-column field="id" header="Código"></p-column>
         <p-column field="name" header="Nome"></p-column>
+        <p-column field="subCategory.name" header="Sub Categoria"></p-column>
       </p-dataTable>
     </div>
   </div>
@@ -44,6 +45,10 @@
       <div class="form-group">
         <label for="name">Nome</label>
         <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
+      </div>
+      <div class="form-group">
+        <label>Sub Categoria</label>
+        <p-dropdown [options]="selectItemList" [(ngModel)]="objeto.subCategory" placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
       </div>
     </div>
     <p-footer>

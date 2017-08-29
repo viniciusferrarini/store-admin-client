@@ -1,4 +1,3 @@
-///<reference path="../../../node_modules/rxjs/add/operator/catch.d.ts"/>
 import {CrudEntity} from "./crud.entity";
 import {HttpService} from "./http.service";
 import 'rxjs/Rx';
@@ -14,21 +13,7 @@ export abstract class CrudService<T extends CrudEntity<ID>, ID> {
     return this.getHttpService().get(this.getUrl())
       .map(res => {
         const toReturn = [];
-        const objetos = res.json()._embedded.objetos;
-        const length = objetos.length;
-        for (let i = 0; i < length; i++) {
-          toReturn.push(Object.assign(new this.type, objetos[i]));
-        }
-        return toReturn;
-      });
-  }
-
-  public findAll(): Observable<T[]> {
-    const url = `${this.getUrl()}`;
-    return this.getHttpService().get(url)
-      .map(res => {
-        const toReturn = [];
-        const objetos = res.json()._embedded.objetos;
+        const objetos = res.json() as T[];
         const length = objetos.length;
         for (let i = 0; i < length; i++) {
           toReturn.push(Object.assign(new this.type, objetos[i]));
@@ -48,8 +33,9 @@ export abstract class CrudService<T extends CrudEntity<ID>, ID> {
   public save(t: T): Observable<T> {
     const self = this;
     return this.getHttpService().post(this.getUrl(), t)
-      .map(res => res.json() as T)
-      .catch((err: any) => {
+      .map(res => {
+        return res.json() as T;
+      }).catch((err: any) => {
         const array = err.json().errors;
         for (let i = 0; i < array.length; i++) {
           self.mensagemService.send("warn", "Informação Inválida", array[i].message.toString())
@@ -57,13 +43,6 @@ export abstract class CrudService<T extends CrudEntity<ID>, ID> {
         return Observable.throw(err.statusText);
       });
   }
-
-  /*public save(t: T): Promise<T> {
-    return this.getHttpService().post(this.getUrl(), t)
-      .toPromise()
-      .then(response => response.json() as T)
-      .catch(this.handleError);
-  }*/
 
   public remove(id: ID): Observable<T> {
     const url = `${this.getUrl()}/${id}`;

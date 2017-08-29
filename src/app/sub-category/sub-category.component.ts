@@ -3,8 +3,9 @@ import {CrudController} from "../service/crud.controller";
 import {SubCategory} from "./sub-category";
 import {SubCategoryService} from "./sub-category.service";
 import {MensagemService} from "../growl/mensagem.service";
-import {Category} from "../category/category";
 import {CategoryService} from "../category/category.service";
+import {SelectItem} from "../dto/select.item";
+import {LazyLoadEvent} from "primeng/primeng";
 
 @Component({
   selector: 'app-sub-category',
@@ -13,15 +14,18 @@ import {CategoryService} from "../category/category.service";
 })
 export class SubCategoryComponent extends CrudController<SubCategory, number> implements OnInit {
 
-  categoryList: Category[] = [];
+  selectItemList: SelectItem[] = [];
 
   constructor(subCategoryService: SubCategoryService, mensagemService: MensagemService, private categoryService: CategoryService) {
     super(subCategoryService, mensagemService, SubCategory);
+    this.getSelectItemList();
   }
 
-  ngOnInit() {
-    this.categoryService.findAll().subscribe(res => {this.categoryList = res});
-    console.log(this.categoryList);
+  getSelectItemList() {
+    this.categoryService.getTable().subscribe(res => {
+      res.forEach(item => {
+        this.selectItemList.push(new SelectItem({id: item.id, name: item.name}, item.name));
+      });
+    });
   }
-
 }

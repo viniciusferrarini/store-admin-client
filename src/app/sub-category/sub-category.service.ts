@@ -13,7 +13,7 @@ export class SubCategoryService extends CrudService<SubCategory, number> {
   }
 
   protected getUrl(): string {
-    return environment.proxy + "/sub-category";
+    return environment.proxy + "/subCategory";
   }
 
   protected getHttpService(): HttpService {

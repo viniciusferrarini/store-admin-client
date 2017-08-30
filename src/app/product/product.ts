@@ -1,4 +1,7 @@
 import {CrudEntity} from "../service/crud.entity";
+import {Model} from "../model/model";
+import {Brand} from "../brand/brand";
+import {SubCategory} from "../sub-category/sub-category";
 
 export class Product implements CrudEntity<number> {
 
@@ -12,15 +15,10 @@ export class Product implements CrudEntity<number> {
 
   value: number;
 
-  /*@JoinColumn(name = "brandId", referencedColumnName = "id")
-  @ManyToOne(fetch = FetchType.EAGER)
-  private Brand brand;*/
+  models: Model[];
 
-  /*@JoinColumn(name = "subCategoryId", referencedColumnName = "id")
-  @ManyToOne(fetch = FetchType.EAGER)
-  private SubCategory subCategory;*/
+  brand: Brand;
 
-  /*@ManyToMany(cascade = CascadeType.ALL)
-  private List<Model> model = new ArrayList<>();*/
+  subCategory: SubCategory;
 
 }

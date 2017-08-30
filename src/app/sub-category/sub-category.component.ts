@@ -5,7 +5,7 @@ import {SubCategoryService} from "./sub-category.service";
 import {MensagemService} from "../growl/mensagem.service";
 import {CategoryService} from "../category/category.service";
 import {SelectItem} from "../dto/select.item";
-import {LazyLoadEvent} from "primeng/primeng";
+import {YesNo} from "../enumeration/YesNo";
 
 @Component({
   selector: 'app-sub-category',

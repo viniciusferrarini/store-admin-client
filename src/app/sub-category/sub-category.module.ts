@@ -6,8 +6,9 @@ import {
   DialogModule,
   DropdownModule,
   GrowlModule,
+  InputSwitchModule,
   InputTextModule,
-  SharedModule
+  SharedModule,
 } from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
 import {SubCategoryComponent} from "./sub-category.component";
@@ -24,7 +25,8 @@ import {CategoryService} from "../category/category.service";
     InputTextModule,
     FormsModule,
     GrowlModule,
-    DropdownModule
+    DropdownModule,
+    InputSwitchModule
   ],
   declarations: [SubCategoryComponent],
   exports: [SubCategoryComponent],

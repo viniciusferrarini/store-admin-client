@@ -35,7 +35,7 @@
       </p-dataTable>
     </div>
   </div>
-  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [modal]="true">
+  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" >
     <p-header>
       {{acao}}
     </p-header>
@@ -76,7 +76,24 @@
           </div>
         </div>
       </div>
-      <p-column field="description" header="Descrição"></p-column>
+      <div class="form-group">
+        <label>Marca</label>
+        <p-dropdown [options]="brandList" [(ngModel)]="objeto.brand" placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+      </div>
+      <div class="form-group">
+        <label>Sub Categoria</label>
+        <p-dropdown [options]="subCategoryList" [(ngModel)]="objeto.subCategory" placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body" (onChange)="subCategoryChange($event)"></p-dropdown>
+      </div>
+      <div class="form-group" *ngIf="showModels">
+        <label>Modelos</label>
+        <p-pickList [source]="modelList" [target]="objeto.models" sourceHeader="Modelos" targetHeader="Selecionados" [responsive]="true" [showSourceControls]="false" [showTargetControls]="false">
+          <ng-template let-model pTemplate="item">
+            <div class="ui-helper-clearfix">
+              <div>{{model.subCategory.name}} - {{model.name}}</div>
+            </div>
+          </ng-template>
+        </p-pickList>
+      </div>
     </div>
     <p-footer>
       <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>

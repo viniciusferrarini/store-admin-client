@@ -1,10 +1,10 @@
 <div class="row">
   <div class="page-title">
-    <h3 class="title">Modelos</h3>
+    <h3 class="title">Marcas</h3>
   </div>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title"><strong>Lista de Modelos</strong></h3>
+      <h3 class="panel-title"><strong>Lista de Marcas</strong></h3>
       <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
     </div>
     <div class="panel-body">
@@ -29,11 +29,10 @@
                    [draggable]="false">
         <p-column field="id" header="Código"></p-column>
         <p-column field="name" header="Nome"></p-column>
-        <p-column field="subCategory.name" header="Sub Categoria"></p-column>
       </p-dataTable>
     </div>
   </div>
-  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" >
+  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" [modal]="true" >
     <p-header>
       {{acao}}
     </p-header>
@@ -45,10 +44,6 @@
       <div class="form-group">
         <label for="name">Nome</label>
         <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
-      </div>
-      <div class="form-group">
-        <label>Sub Categoria</label>
-        <p-dropdown [options]="selectItemList" [(ngModel)]="objeto.subCategory" placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
       </div>
     </div>
     <p-footer>

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {
   ButtonModule,
   DataTableModule,
-  DialogModule,
+  DialogModule, DropdownModule,
   GrowlModule,
   InputTextareaModule,
   InputTextModule,
@@ -12,6 +12,8 @@ import {
 import {FormsModule} from "@angular/forms";
 import {ProductComponent} from "./product.component";
 import {ProductService} from "./product.service";
+import {PickListModule} from "primeng/components/picklist/picklist";
+import {ModelService} from "../model/model.service";
 
 @NgModule({
   imports: [
@@ -23,10 +25,12 @@ import {ProductService} from "./product.service";
     InputTextModule,
     FormsModule,
     GrowlModule,
-    InputTextareaModule
+    InputTextareaModule,
+    PickListModule,
+    DropdownModule
   ],
   declarations: [ProductComponent],
   exports: [ProductComponent],
-  providers: [ProductService]
+  providers: [ProductService, ModelService]
 })
 export class ProductModule { }

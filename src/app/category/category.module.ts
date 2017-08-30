@@ -3,10 +3,16 @@ import { CommonModule } from '@angular/common';
 import {CategoryComponent} from "./category.component";
 import {CategoryService} from "./category.service";
 import {
-  ButtonModule, DataTableModule, DialogModule, DropdownModule, GrowlModule, InputTextModule,
+  ButtonModule,
+  DataTableModule,
+  DialogModule,
+  DropdownModule,
+  GrowlModule,
+  InputTextModule,
   SharedModule
 } from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
+import {ModelService} from "../model/model.service";
 
 @NgModule({
   imports: [
@@ -22,6 +28,6 @@ import {FormsModule} from "@angular/forms";
   ],
   declarations: [CategoryComponent],
   exports: [CategoryComponent],
-  providers: [CategoryService]
+  providers: [CategoryService, ModelService]
 })
 export class CategoryModule { }

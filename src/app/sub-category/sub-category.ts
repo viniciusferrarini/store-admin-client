@@ -6,6 +6,6 @@ export class SubCategory implements CrudEntity<number> {
   id: number;
   name: string;
   category: Category;
-  connectProducts: Boolean;
+  connectProducts: Boolean = false;
 
 }

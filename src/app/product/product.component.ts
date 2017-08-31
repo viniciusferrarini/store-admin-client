@@ -15,7 +15,7 @@ import {BrandService} from "../brand/brand.service";
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent extends CrudController<Product, number> implements OnInit {
+export class ProductComponent extends CrudController<Product, number> {
 
   showModels: boolean;
   modelList: Model[] = [];
@@ -33,9 +33,6 @@ export class ProductComponent extends CrudController<Product, number> implements
     this.getBrandList();
   }
 
-  ngOnInit() {
-  }
-
   getModelsList() {
     this.modelService.getTable().subscribe(res => {this.modelList = res});
   }
@@ -43,7 +40,7 @@ export class ProductComponent extends CrudController<Product, number> implements
   getSubCategoryList() {
     this.subCategoryService.getTable().subscribe(res => {
       res.forEach(item => {
-        this.subCategoryList.push(new SelectItem({id: item.id, name: item.name, connectProducts: item.connectProducts}, item.name));
+        this.subCategoryList.push(new SelectItem({id: item.id, name: item.name, category: item.category, connectProducts: item.connectProducts}, item.name));
       });
     })
   }

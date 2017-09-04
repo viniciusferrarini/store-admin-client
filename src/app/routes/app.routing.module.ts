@@ -13,15 +13,13 @@ import {BrandComponent} from "../brand/brand.component";
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: '', canActivate: [LoginService], children: [
-    {path: 'home', component: HomeComponent},
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'product', component: ProductComponent},
-    {path: 'category', component: CategoryComponent},
-    {path: 'subCategory', component: SubCategoryComponent},
-    {path: 'model', component: ModelComponent},
-    {path: 'brand', component: BrandComponent},
-  ]}
+  {path: 'home', component: HomeComponent, canActivate: [LoginService]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [LoginService]},
+  {path: 'product', component: ProductComponent, canActivate: [LoginService]},
+  {path: 'category', component: CategoryComponent, canActivate: [LoginService]},
+  {path: 'subCategory', component: SubCategoryComponent, canActivate: [LoginService]},
+  {path: 'model', component: ModelComponent, canActivate: [LoginService]},
+  {path: 'brand', component: BrandComponent, canActivate: [LoginService]},
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

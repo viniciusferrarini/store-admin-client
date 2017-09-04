@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'category', component: CategoryComponent, canActivate: [LoginService]},
   {path: 'subCategory', component: SubCategoryComponent, canActivate: [LoginService]},
   {path: 'model', component: ModelComponent, canActivate: [LoginService]},
-  {path: 'brand', component: BrandComponent, canActivate: [LoginService]},
+  {path: 'brand', component: BrandComponent, canActivate: [LoginService]}
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

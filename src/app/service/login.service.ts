@@ -22,16 +22,38 @@ export class LoginService implements CanActivate {
     this.isLoggedIn = new Subject<Boolean>();
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const check = localStorage.getItem('access_token') != null;
-    if (!check) {
-      this.router.navigate(['/login']);
-    }
-    return check;
+  isAuthorized() {
+    return this.isLoggedIn;
   }
 
-  isAuthorized() {
-    return localStorage.getItem('access_token') != null;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.checkToken()) {
+      this.isLoggedIn.next(true);
+      return true;
+    } else {
+      this.isLoggedIn.next(false);
+      this.router.navigate(['/login']);
+    }
+    return this.isLoggedIn;
+  }
+
+  checkToken() {
+    if (localStorage.getItem('access_token') != null) {
+      const params = new URLSearchParams();
+      params.append('token', localStorage.getItem('access_token'));
+      const headers = new Headers({
+        'Content-type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic YXBwOmFwcA=='
+      });
+      const options = new RequestOptions({headers: headers});
+
+      const url = `${environment.proxy}/oauth/check_token`;
+      return this.httpA.post(url, params.toString(), options)
+        .map(res => {
+          return Observable.throw(true);
+        });
+    }
+    return false;
   }
 
   observableIsLoggedIn() {
@@ -47,7 +69,7 @@ export class LoginService implements CanActivate {
 
     const headers = new Headers({
       'Content-type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic YXBwOmFwcA==' /*+ btoa("app:app")*/
+      'Authorization': 'Basic YXBwOmFwcA=='
     });
     const options = new RequestOptions({headers: headers});
 

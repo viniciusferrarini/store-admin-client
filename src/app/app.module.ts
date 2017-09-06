@@ -8,7 +8,6 @@ import {UserService} from "./user/user.service";
 import {HttpService} from "./service/http.service";
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
-import {LoginComponent} from "./login/login.component";
 import {AppRoutingModule} from "./routes/app.routing.module";
 import {MenuComponent} from "./menu/menu.component";
 import {NavComponent} from "./nav/nav.component";
@@ -20,18 +19,17 @@ import {UserComponent} from './user/user.component';
 import {CategoryModule} from "./category/category.module";
 import {SubCategoryModule} from "./sub-category/sub-category.module";
 import {ModelModule} from "./model/model.module";
-import {CategoryService} from "./category/category.service";
-import { BrandComponent } from './brand/brand.component';
 import {BrandModule} from "./brand/brand.module";
+import {LoginModule} from "./login/login.module";
+import {GalleryModule} from "./gallery/gallery.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent,
     MenuComponent,
     NavComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +43,9 @@ import {BrandModule} from "./brand/brand.module";
     CategoryModule,
     SubCategoryModule,
     ModelModule,
-    BrandModule
+    BrandModule,
+    LoginModule,
+    GalleryModule
   ],
   providers: [
     HttpService,

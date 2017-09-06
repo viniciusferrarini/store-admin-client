@@ -1,4 +1,3 @@
-import {ModuleWithProviders, NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "../login/login.component";
 import {LoginService} from "../service/login.service";
@@ -9,6 +8,7 @@ import {CategoryComponent} from "../category/category.component";
 import {ModelComponent} from "../model/model.component";
 import {SubCategoryComponent} from "../sub-category/sub-category.component";
 import {BrandComponent} from "../brand/brand.component";
+import {GalleryComponent} from "../gallery/gallery.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -19,7 +19,8 @@ const routes: Routes = [
   {path: 'category', component: CategoryComponent, canActivate: [LoginService]},
   {path: 'subCategory', component: SubCategoryComponent, canActivate: [LoginService]},
   {path: 'model', component: ModelComponent, canActivate: [LoginService]},
-  {path: 'brand', component: BrandComponent, canActivate: [LoginService]}
+  {path: 'brand', component: BrandComponent, canActivate: [LoginService]},
+  {path: 'gallery', component: GalleryComponent, canActivate: [LoginService]}
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

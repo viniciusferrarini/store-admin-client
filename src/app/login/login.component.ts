@@ -22,14 +22,4 @@ export class LoginComponent {
       console.log("Usuário ou senha invalidos");
     });
   }
-
-  /*create(user: User) {
-    this.userService.save(user).then(e => {
-      console.log('User has been created');
-      this.login(user);
-    }).catch(e => {
-      console.log(e.json().message);
-    });
-  }*/
-
 }

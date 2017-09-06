@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoginService} from "../service/login.service";
 import {User} from "../user/user";
-import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-nav',
@@ -17,7 +16,6 @@ export class NavComponent implements OnInit {
 
   constructor(private loginService: LoginService) {}
   ngOnInit() {
-    this.render = this.loginService.isAuthorized();
     this.loginService.observableIsLoggedIn().subscribe(res => this.render = res);
     this.loginService.getUser().subscribe(res => this.user = res);
   }

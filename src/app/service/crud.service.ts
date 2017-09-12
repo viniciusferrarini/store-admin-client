@@ -3,18 +3,16 @@ import {HttpService} from "./http.service";
 import 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import {Observable} from "rxjs/Observable";
-import {MensagemService} from "../growl/mensagem.service";
 
 export abstract class CrudService<T extends CrudEntity<ID>, ID> {
 
-  constructor(public type: any, private mensagemService: MensagemService) {}
+  constructor(public type: any) {}
 
   public getTable(): Observable<T[]> {
     return this.getHttpService().get(this.getUrl())
       .map(res => {
         const toReturn = [];
-        const objetos = res.json() as T[];
-        const length = objetos.length;
+        const objetos = res;
         for (let i = 0; i < length; i++) {
           toReturn.push(Object.assign(new this.type, objetos[i]));
         }
@@ -22,24 +20,11 @@ export abstract class CrudService<T extends CrudEntity<ID>, ID> {
       });
   }
 
-  public findOne(id: ID): Promise<T> {
-    const url = `${this.getUrl()}/${id}`;
-    return this.getHttpService().get(url)
-      .toPromise()
-      .then(response => response.json() as T)
-      .catch(this.handleError);
-  }
-
   public save(t: T): Observable<T> {
-    const self = this;
     return this.getHttpService().post(this.getUrl(), t)
       .map(res => {
-        return res.json() as T;
+        return res;
       }).catch((err: any) => {
-        const array = err.json().errors;
-        for (let i = 0; i < array.length; i++) {
-          self.mensagemService.send("warn", "Informação Inválida", array[i].message.toString())
-        }
         return Observable.throw(err.statusText);
       });
   }
@@ -56,7 +41,6 @@ export abstract class CrudService<T extends CrudEntity<ID>, ID> {
   protected abstract getHttpService(): HttpService;
 
   protected handleError(error: any): Promise<any> {
-    this.mensagemService.send("warn", "Algo errado!", error.message || error);
     return Promise.reject(error.message || error);
   }
 }

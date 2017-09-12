@@ -17,7 +17,6 @@ export class NavComponent implements OnInit {
   constructor(private loginService: LoginService) {}
   ngOnInit() {
     this.loginService.observableIsLoggedIn().subscribe(res => this.render = res);
-    this.loginService.getUser().subscribe(res => this.user = res);
   }
 
   logout() {

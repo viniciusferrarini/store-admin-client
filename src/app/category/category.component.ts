@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Category} from "./category";
 import {CrudController} from "../service/crud.controller";
 import {CategoryService} from "./category.service";
-import {MensagemService} from "../growl/mensagem.service";
 
 @Component({
   moduleId: module.id,
@@ -12,8 +11,8 @@ import {MensagemService} from "../growl/mensagem.service";
 })
 export class CategoryComponent extends CrudController<Category, number>{
 
-  constructor(categoryService: CategoryService, mensagemService: MensagemService) {
-    super(categoryService, mensagemService, Category);
+  constructor(categoryService: CategoryService) {
+    super(categoryService, Category);
   }
 
 }

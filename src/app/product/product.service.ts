@@ -8,8 +8,8 @@ import {Product} from "./product";
 @Injectable()
 export class ProductService extends CrudService<Product, number> {
 
-  constructor(private httpService: HttpService, mensagemService: MensagemService) {
-    super(Product, mensagemService);
+  constructor(private httpService: HttpService) {
+    super(Product);
   }
 
   protected getUrl(): string {

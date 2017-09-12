@@ -3,13 +3,12 @@ import {User} from "./user";
 import {environment} from "../../environments/environment";
 import {Injectable} from "@angular/core";
 import {HttpService} from "../service/http.service";
-import {MensagemService} from "../growl/mensagem.service";
 
 @Injectable()
 export class UserService extends CrudService<User, number> {
 
-  constructor(private httpService: HttpService, mensagemService: MensagemService) {
-    super(User, mensagemService);
+  constructor(private httpService: HttpService) {
+    super(User);
   }
 
   protected getUrl(): string {

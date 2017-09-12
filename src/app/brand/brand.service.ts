@@ -8,8 +8,8 @@ import {environment} from "../../environments/environment";
 @Injectable()
 export class BrandService extends CrudService<Brand, number> {
 
-  constructor(private httpService: HttpService, mensagemService: MensagemService) {
-    super(Brand, mensagemService);
+  constructor(private httpService: HttpService) {
+    super(Brand);
   }
 
   protected getUrl(): string {

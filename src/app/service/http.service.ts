@@ -1,34 +1,31 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class HttpService {
 
-  constructor(private http: Http) {
+  constructor(private httpClient: HttpClient) {
   }
 
-  options(): RequestOptions {
+  headers(): HttpHeaders {
     const token = localStorage.getItem("access_token");
     if (token) {
-      return new RequestOptions({
-        headers: new Headers({
-          'Authorization': 'bearer ' + localStorage.getItem("access_token")
-        })
-      });
+      return new HttpHeaders()
+          .set('Authorization', 'bearer ' + localStorage.getItem("access_token"))
     }
     return null;
   }
 
-  get(url: string): Observable<Response> {
-    return this.http.get(url, this.options());
+  get<T>(url: string): Observable<T> {
+    return this.httpClient.get<T>(url, {headers: this.headers()});
   }
 
-  post(url: string, body: any): Observable<Response> {
-    return this.http.post(url, body, this.options());
+  post<T>(url: string, body: any): Observable<T> {
+    return this.httpClient.post<T>(url, body, {headers: this.headers()});
   }
 
-  delete(url: string): Observable<Response> {
-    return this.http.delete(url, this.options());
+  delete<T>(url: string): Observable<T> {
+    return this.httpClient.delete<T>(url, {headers: this.headers()});
   }
 }

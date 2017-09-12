@@ -15,8 +15,8 @@ export class ModelComponent extends CrudController<Model, number> {
 
   selectItemList: SelectItem[] = [];
 
-  constructor(modelService: ModelService, mensagemService: MensagemService, private subCategoryService: SubCategoryService) {
-    super(modelService, mensagemService, Model);
+  constructor(modelService: ModelService, private subCategoryService: SubCategoryService) {
+    super(modelService, Model);
     this.getSelectItemList();
   }
 

@@ -8,8 +8,8 @@ import {MensagemService} from "../growl/mensagem.service";
 @Injectable()
 export class CategoryService extends CrudService<Category, number> {
 
-  constructor(private httpService: HttpService, mensagemService: MensagemService) {
-    super(Category, mensagemService);
+  constructor(private httpService: HttpService) {
+    super(Category);
   }
 
   protected getUrl(): string {

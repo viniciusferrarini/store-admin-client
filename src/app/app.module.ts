@@ -1,7 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LoginService} from "./service/login.service";
 import {UserService} from "./user/user.service";
@@ -22,6 +21,9 @@ import {ModelModule} from "./model/model.module";
 import {BrandModule} from "./brand/brand.module";
 import {LoginModule} from "./login/login.module";
 import {GalleryModule} from "./gallery/gallery.module";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpLoginInterceptor} from "./service/http.login.interceptor";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -35,11 +37,11 @@ import {GalleryModule} from "./gallery/gallery.module";
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     DashboardModule,
     ProductModule,
-    MensagemModule,
     CategoryModule,
     SubCategoryModule,
     ModelModule,
@@ -50,8 +52,11 @@ import {GalleryModule} from "./gallery/gallery.module";
   providers: [
     HttpService,
     LoginService,
-    UserService,
-    MensagemService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpLoginInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

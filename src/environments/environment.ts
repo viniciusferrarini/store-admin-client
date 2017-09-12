@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  proxy: "http://localhost:7990"
+  proxy: "http://localhost:7990",
+  showLogRequestTime: true
 };

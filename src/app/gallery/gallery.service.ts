@@ -8,8 +8,8 @@ import {environment} from "../../environments/environment";
 @Injectable()
 export class GalleryService extends CrudService<Category, number> {
 
-  constructor(private httpService: HttpService, mensagemService: MensagemService) {
-    super(Category, mensagemService);
+  constructor(private httpService: HttpService) {
+    super(Category);
   }
 
   protected getUrl(): string {

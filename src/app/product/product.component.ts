@@ -23,11 +23,10 @@ export class ProductComponent extends CrudController<Product, number> {
   subCategoryList: SelectItem[] = [];
 
   constructor(productService: ProductService,
-              mensagemService: MensagemService,
               private modelService: ModelService,
               private subCategoryService: SubCategoryService,
               private brandService: BrandService) {
-    super(productService, mensagemService, Product);
+    super(productService, Product);
     this.getModelsList();
     this.getSubCategoryList();
     this.getBrandList();
@@ -40,7 +39,12 @@ export class ProductComponent extends CrudController<Product, number> {
   getSubCategoryList() {
     this.subCategoryService.getTable().subscribe(res => {
       res.forEach(item => {
-        this.subCategoryList.push(new SelectItem({id: item.id, name: item.name, category: item.category, connectProducts: item.connectProducts}, item.name));
+        this.subCategoryList.push(new SelectItem({
+          id: item.id,
+          name: item.name,
+          category: item.category,
+          connectProducts: item.connectProducts
+        }, item.name));
       });
     })
   }

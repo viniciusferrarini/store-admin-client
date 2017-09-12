@@ -10,7 +10,7 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
   displayEdit: Boolean = false;
   acao: string;
 
-  constructor(public crudService: CrudService<T, ID>, public mensagemService: MensagemService, private type: any) { };
+  constructor(public crudService: CrudService<T, ID>, private type: any) { };
 
   ngOnInit(): void {
     this.getTable();
@@ -24,7 +24,6 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
     if (this.objeto.id != null) {
       this.crudService.save(this.objeto)
         .subscribe(res => {
-          this.mensagemService.send("success", "Sucesso!", "Registro editado com sucesso");
           this.displayEdit = false;
         });
     } else {
@@ -34,7 +33,6 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
           this.objeto = res;
           listaTemp.push(res);
           this.lista = listaTemp;
-          this.mensagemService.send("success", "Sucesso!", "Novo registro incluído com sucesso");
           this.displayEdit = false;
         });
     }
@@ -52,7 +50,6 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
       const index = listTemp.indexOf(this.objeto);
       listTemp.splice(index, 1);
       this.lista = listTemp;
-      this.mensagemService.send("success", "Sucesso!", "Registro removido com sucesso");
       this.displayEdit = false;
     });
   };

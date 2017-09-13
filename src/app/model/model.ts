@@ -5,6 +5,6 @@ export class Model implements CrudEntity<number> {
 
   id: number;
   name: string;
-  subCategory: SubCategory;
+  subCategory: SubCategory = new SubCategory();
 
 }

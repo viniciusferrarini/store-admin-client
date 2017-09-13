@@ -12,25 +12,21 @@ export class HttpLoginInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!this.loginService.isAuthorized()) {
-      return next.handle(req);
-    }
-
     const authReq = req.clone({
-      headers: req.headers.set('Authorization', "bearer " + localStorage.getItem('access_token')).set('Content-Type', 'application/json')
+      headers: req.headers.set('Content-Type', 'application/json').append('Authorization', 'bearer ' + localStorage.getItem("access_token"))
     });
 
     const started = Date.now();
     return next.handle(authReq).do(event => {
       if (environment.showLogRequestTime) {
         if (event instanceof HttpResponse) {
+          this.loginService.isLoggedIn.next(true);
           const elapsed = Date.now() - started;
           console.log(`">>>>>>>>>>>>>>>>>>>>> Request for ${req.urlWithParams} took ${elapsed} ms.`);
         }
       }
     }, err => {
       if ( err.status === 401 ) {
-        console.log("toaquiii");
         this.loginService.logout();
       }
     });

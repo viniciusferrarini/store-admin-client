@@ -1,46 +1,37 @@
-import {CrudEntity} from "./crud.entity";
-import {HttpService} from "./http.service";
 import 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import {Observable} from "rxjs/Observable";
+import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {CrudEntity} from "./crud.entity";
 
-export abstract class CrudService<T extends CrudEntity<ID>, ID> {
+@Injectable()
+export abstract class CrudService <T extends CrudEntity<ID>, ID>  {
 
-  constructor(public type: any) {}
+  constructor(private http: HttpClient) { }
 
-  public getTable(): Observable<T[]> {
-    return this.getHttpService().get(this.getUrl())
-      .map(res => {
-        const toReturn = [];
-        const objetos = res;
-        for (let i = 0; i < length; i++) {
-          toReturn.push(Object.assign(new this.type, objetos[i]));
-        }
-        return toReturn;
-      });
+  get<T>(): Observable<T> {
+    return this.http.get<T>(this.getUrl());
   }
 
-  public save(t: T): Observable<T> {
-    return this.getHttpService().post(this.getUrl(), t)
-      .map(res => {
-        return res;
-      }).catch((err: any) => {
-        return Observable.throw(err.statusText);
-      });
+  post<T>(body: string): Observable<T> {
+    return this.http.post<T>(this.getUrl(), body);
   }
 
-  public remove(id: ID): Observable<T> {
-    const url = `${this.getUrl()}/${id}`;
-    return this.getHttpService().delete(url)
-      .map(() => null)
-      .catch(this.handleError);
+  put<T>(body: string): Observable<T> {
+    return this.http.put<T>(this.getUrl(), body);
+  }
+
+  delete<T>(body: string): Observable<T> {
+    return this.http.delete<T>(this.getUrl() + "/" + body);
+  }
+
+  patch<T>(body: string): Observable<T> {
+    return this.http.patch<T>(this.getUrl(), body);
   }
 
   protected abstract getUrl(): string;
 
-  protected abstract getHttpService(): HttpService;
-
-  protected handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
-  }
 }
+
+

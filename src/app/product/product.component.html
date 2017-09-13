@@ -40,7 +40,7 @@
       {{acao}}
     </p-header>
     <div class="row">
-      <div [ngClass]="showModels ? 'col-md-6' : 'col-md-12'">
+      <div [ngClass]="showModels || objeto.subCategory.connectProducts ? 'col-md-6' : 'col-md-12'">
         <div class="ui-grid ui-grid-responsive ui-fluid">
           <div class="row">
             <div class="col-md-2">
@@ -88,10 +88,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6" *ngIf="showModels">
+      <div class="col-md-6" *ngIf="showModels || objeto.subCategory.connectProducts">
         <div class="form-group">
           <label>Modelos</label>
-          <p-pickList [source]="modelList" [target]="objeto.models" sourceHeader="Modelos" targetHeader="Selecionados" [responsive]="true" [showSourceControls]="false" [showTargetControls]="false">
+          <p-pickList [source]="modelList" [target]="targetList" (onMoveToTarget)="addItem($event)" (onMovetoSource)="removeItem($event)" sourceHeader="Modelos" targetHeader="Selecionados" [responsive]="true" [showSourceControls]="false" [showTargetControls]="false">
             <ng-template let-model pTemplate="item">
               <div class="ui-helper-clearfix">
                 <div>{{model.subCategory.name}} - {{model.name}}</div>

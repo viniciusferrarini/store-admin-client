@@ -8,7 +8,7 @@ import {Headers, Http, RequestOptions} from "@angular/http";
 @Injectable()
 export class LoginService {
 
-  private isLoggedIn = new Subject<Boolean>();
+  public isLoggedIn = new Subject<Boolean>();
 
   constructor(private router: Router,
               private http: Http) {
@@ -32,7 +32,7 @@ export class LoginService {
     const url = `${environment.proxy}/oauth/token`;
     this.http.post(url, params.toString(), options)
       .subscribe(res => {
-        this.setLoggedIn(res);
+        this.setLoggedIn(res.json());
       }, error => {
         this.logout();
       });

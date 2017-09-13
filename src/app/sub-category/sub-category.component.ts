@@ -20,7 +20,7 @@ export class SubCategoryComponent extends CrudController<SubCategory, number> im
   }
 
   getSelectItemList() {
-    this.categoryService.getTable().subscribe(res => {
+    this.categoryService.get<any>().subscribe(res => {
       res.forEach(item => {
         this.selectItemList.push(new SelectItem({id: item.id, name: item.name}, item.name));
       });

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CrudController} from "../service/crud.controller";
 import {Product} from "./product";
 import {ProductService} from "./product.service";
-import {MensagemService} from "../growl/mensagem.service";
 import {ModelService} from "../model/model.service";
 import {Model} from "../model/model";
 import {SelectItem} from "../dto/select.item";
@@ -19,6 +18,7 @@ export class ProductComponent extends CrudController<Product, number> {
 
   showModels: boolean;
   modelList: Model[] = [];
+  targetList: Model[] = [];
   brandList: SelectItem[] = [];
   subCategoryList: SelectItem[] = [];
 
@@ -33,11 +33,19 @@ export class ProductComponent extends CrudController<Product, number> {
   }
 
   getModelsList() {
-    this.modelService.getTable().subscribe(res => {this.modelList = res});
+    this.modelService
+      .get()
+      .subscribe((data: any[]) => this.modelList = data,
+        error => () => {
+          console.log(error);
+        },
+        () => {
+          console.log("fim da requisição");
+        });
   }
 
   getSubCategoryList() {
-    this.subCategoryService.getTable().subscribe(res => {
+    this.subCategoryService.get<any>().subscribe(res => {
       res.forEach(item => {
         this.subCategoryList.push(new SelectItem({
           id: item.id,
@@ -50,7 +58,7 @@ export class ProductComponent extends CrudController<Product, number> {
   }
 
   getBrandList() {
-    this.brandService.getTable().subscribe(res => {
+   this.brandService.get<any>().subscribe(res => {
       res.forEach(item => {
         this.brandList.push(new SelectItem({id: item.id, name: item.name}, item.name));
       });
@@ -59,6 +67,14 @@ export class ProductComponent extends CrudController<Product, number> {
 
   subCategoryChange(e) {
     this.showModels = e.value.connectProducts;
+  }
+
+  addItem(e) {
+    this.objeto.models = e.items;
+  }
+
+  removeItem(e) {
+    this.objeto.models = e.items;
   }
 
 }

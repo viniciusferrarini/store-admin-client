@@ -1,7 +1,6 @@
 import {OnInit} from "@angular/core";
 import {CrudEntity} from "./crud.entity";
 import {CrudService} from "./crud.service";
-import {MensagemService} from "../growl/mensagem.service";
 
 export abstract class CrudController<T extends CrudEntity<ID>, ID> implements OnInit {
 
@@ -17,24 +16,42 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
   };
 
   getTable() {
-    this.crudService.getTable().subscribe(res => { this.lista = res});
+    this.crudService
+      .get<any[]>()
+      .subscribe((data: any[]) => this.lista = data,
+        error => () => {
+          console.log(error);
+        },
+        () => {
+          console.log("fim da requisição");
+        });
   }
 
   persist() {
     if (this.objeto.id != null) {
-      this.crudService.save(this.objeto)
-        .subscribe(res => {
-          this.displayEdit = false;
-        });
+      this.crudService.post<any>(JSON.stringify(this.objeto))
+        .subscribe(
+          res => {
+            this.displayEdit = false;
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
     } else {
-      this.crudService.save(this.objeto)
-        .subscribe(res => {
-          const listaTemp = [...this.lista];
-          this.objeto = res;
-          listaTemp.push(res);
-          this.lista = listaTemp;
-          this.displayEdit = false;
-        });
+      this.crudService.post<any>(JSON.stringify(this.objeto))
+        .subscribe(
+          res => {
+            const listaTemp = [...this.lista];
+            this.objeto = res;
+            listaTemp.push(res);
+            this.lista = listaTemp;
+            this.displayEdit = false;
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
     }
   };
 
@@ -45,7 +62,7 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
   };
 
   remove() {
-    this.crudService.remove(this.objeto.id).subscribe(res => {
+    this.crudService.delete<any>(JSON.stringify(this.objeto.id)).subscribe(res => {
       const listTemp = [...this.lista];
       const index = listTemp.indexOf(this.objeto);
       listTemp.splice(index, 1);

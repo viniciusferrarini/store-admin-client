@@ -15,10 +15,10 @@ export class Product implements CrudEntity<number> {
 
   value: number;
 
-  models: Model[];
+  models: Model[] = [];
 
   brand: Brand;
 
-  subCategory: SubCategory;
+  subCategory: SubCategory = new SubCategory();
 
 }

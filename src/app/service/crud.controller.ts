@@ -1,6 +1,7 @@
-import {OnInit} from "@angular/core";
+import {OnInit, ViewContainerRef} from "@angular/core";
 import {CrudEntity} from "./crud.entity";
 import {CrudService} from "./crud.service";
+import {ToastsManager} from "ng2-toastr";
 
 export abstract class CrudController<T extends CrudEntity<ID>, ID> implements OnInit {
 
@@ -9,7 +10,12 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
   displayEdit: Boolean = false;
   acao: string;
 
-  constructor(public crudService: CrudService<T, ID>, private type: any) { };
+  constructor(protected toastr: ToastsManager,
+              protected vcr: ViewContainerRef,
+              public crudService: CrudService<T, ID>,
+              private type: any) {
+    this.toastr.setRootViewContainerRef(this.vcr);
+  };
 
   ngOnInit(): void {
     this.getTable();
@@ -20,10 +26,7 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
       .get<any[]>()
       .subscribe((data: any[]) => this.lista = data,
         error => () => {
-          console.log(error);
-        },
-        () => {
-          console.log("fim da requisição");
+          this.errorMessages(error);
         });
   }
 
@@ -32,16 +35,18 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
       this.crudService.post<any>(JSON.stringify(this.objeto))
         .subscribe(
           res => {
+            this.toastr.success("Cadastro atualizado com sucesso!", "Sucesso!");
             this.displayEdit = false;
           },
           err => {
-            console.log("Error occured");
+            this.errorMessages(err);
           }
         );
     } else {
       this.crudService.post<any>(JSON.stringify(this.objeto))
         .subscribe(
           res => {
+            this.toastr.success("Cadastro realizado com sucesso!", "Sucesso!");
             const listaTemp = [...this.lista];
             this.objeto = res;
             listaTemp.push(res);
@@ -49,11 +54,19 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
             this.displayEdit = false;
           },
           err => {
-            console.log("Error occured");
+            this.errorMessages(err);
           }
         );
     }
   };
+
+  private errorMessages(err) {
+    if (err.error.errors.length > 0) {
+      err.error.errors.forEach(e => {
+        this.toastr.error(e.defaultMessage, "Erro!");
+      });
+    }
+  }
 
   new() {
     this.objeto = new this.type;
@@ -62,13 +75,16 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
   };
 
   remove() {
-    this.crudService.delete<any>(JSON.stringify(this.objeto.id)).subscribe(res => {
-      const listTemp = [...this.lista];
-      const index = listTemp.indexOf(this.objeto);
-      listTemp.splice(index, 1);
-      this.lista = listTemp;
-      this.displayEdit = false;
-    });
+    this.crudService.delete<any>(JSON.stringify(this.objeto.id))
+      .subscribe(res => {
+        const listTemp = [...this.lista];
+        const index = listTemp.indexOf(this.objeto);
+        listTemp.splice(index, 1);
+        this.lista = listTemp;
+        this.displayEdit = false;
+      }, err => {
+        this.errorMessages(err);
+      });
   };
 
   onRowSelect() {

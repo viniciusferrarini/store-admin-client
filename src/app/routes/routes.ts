@@ -1,7 +1,7 @@
 import {ModuleWithProviders} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "../login/login.component";
-import {LoginService} from "../service/login.service";
+import {LoginService} from "../login/login.service";
 import {DashboardComponent} from "../dashboard/dashboard.component";
 import {ProductComponent} from "../product/product.component";
 

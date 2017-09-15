@@ -1,12 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {CrudController} from "../service/crud.controller";
 import {Product} from "./product";
 import {ProductService} from "./product.service";
 import {ModelService} from "../model/model.service";
 import {Model} from "../model/model";
-import {SelectItem} from "../dto/select.item";
+import {SelectItem} from "../entity/dto/select.item";
 import {SubCategoryService} from "../sub-category/sub-category.service";
 import {BrandService} from "../brand/brand.service";
+import {ProductModel} from "../entity/product.model";
+import {letProto} from "rxjs/operator/let";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   moduleId: module.id,
@@ -17,19 +20,28 @@ import {BrandService} from "../brand/brand.service";
 export class ProductComponent extends CrudController<Product, number> {
 
   showModels: boolean;
-  modelList: Model[] = [];
-  targetList: Model[] = [];
+  @Input() sourceList: Model[] = [];
+  @Input() targetList: Model[] = [];
+  @Input() modelList: Model[] = [];
   brandList: SelectItem[] = [];
   subCategoryList: SelectItem[] = [];
 
-  constructor(productService: ProductService,
+  constructor(protected toastr: ToastsManager,
+              protected vcr: ViewContainerRef,
+              productService: ProductService,
               private modelService: ModelService,
               private subCategoryService: SubCategoryService,
               private brandService: BrandService) {
-    super(productService, Product);
+    super(toastr, vcr, productService, Product);
     this.getModelsList();
     this.getSubCategoryList();
     this.getBrandList();
+  }
+
+  onRowSelect() {
+    this.preSelectModels();
+    this.displayEdit = true;
+    this.acao = "Editar ";
   }
 
   getModelsList() {
@@ -70,11 +82,37 @@ export class ProductComponent extends CrudController<Product, number> {
   }
 
   addItem(e) {
-    this.objeto.models = e.items;
+    e.items.forEach(i => {
+      this.objeto.models.push(new ProductModel(i));
+    });
   }
 
   removeItem(e) {
-    this.objeto.models = e.items;
+    if (e.items.length > 1) {
+      this.objeto.models.splice(0, e.items.length);
+    } else {
+      const index = this.objeto.models.indexOf(e.items[0]);
+      this.objeto.models.splice(index, 1);
+    }
   }
 
+  preSelectModels() {
+    this.sourceList = [];
+    this.targetList = [];
+    for (let i = 0; i < this.modelList.length; i++) {
+      const objModel = this.modelList[i];
+      let achou = false;
+      for (let j = 0; j < this.objeto.models.length; j++) {
+        const objProd = this.objeto.models[j];
+        if (objModel.id === objProd.model.id){
+          achou = true;
+        }
+      }
+      if (achou) {
+        this.targetList.push(objModel);
+      } else {
+        this.sourceList.push(objModel);
+      }
+    }
+  }
 }

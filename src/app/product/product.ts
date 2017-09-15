@@ -1,7 +1,7 @@
 import {CrudEntity} from "../service/crud.entity";
-import {Model} from "../model/model";
 import {Brand} from "../brand/brand";
 import {SubCategory} from "../sub-category/sub-category";
+import {ProductModel} from "../entity/product.model";
 
 export class Product implements CrudEntity<number> {
 
@@ -15,7 +15,7 @@ export class Product implements CrudEntity<number> {
 
   value: number;
 
-  models: Model[] = [];
+  models: ProductModel[] = [];
 
   brand: Brand;
 

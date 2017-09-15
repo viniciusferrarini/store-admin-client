@@ -12,6 +12,6 @@ export class BrandService extends CrudService<Brand, number>{
   }
 
   protected getUrl(): string {
-    return environment.proxy + "/brand";;
+    return "/brand";;
   }
 }

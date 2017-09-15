@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 import {CrudController} from "../service/crud.controller";
 import {Model} from "./model";
 import {ModelService} from "./model.service";
-import {MensagemService} from "../growl/mensagem.service";
-import {SelectItem} from "../dto/select.item";
+import {SelectItem} from "../entity/dto/select.item";
 import {SubCategoryService} from "../sub-category/sub-category.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-model',
@@ -15,8 +15,11 @@ export class ModelComponent extends CrudController<Model, number> {
 
   selectItemList: SelectItem[] = [];
 
-  constructor(modelService: ModelService, private subCategoryService: SubCategoryService) {
-    super(modelService, Model);
+  constructor(protected toastr: ToastsManager,
+              protected vcr: ViewContainerRef,
+              modelService: ModelService,
+              private subCategoryService: SubCategoryService) {
+    super(toastr, vcr, modelService, Model);
     this.getSelectItemList();
   }
 

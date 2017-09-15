@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {CrudService} from "../service/crud.service";
-import {environment} from "../../environments/environment";
 import {Product} from "./product";
 import {HttpClient} from "@angular/common/http";
 
@@ -12,6 +11,6 @@ export class ProductService extends CrudService<Product, number> {
   }
 
   protected getUrl(): string {
-    return environment.proxy + "/product";
+    return "/product";
   }
 }

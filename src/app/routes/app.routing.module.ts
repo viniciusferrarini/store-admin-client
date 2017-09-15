@@ -8,18 +8,19 @@ import {ModelComponent} from "../model/model.component";
 import {SubCategoryComponent} from "../sub-category/sub-category.component";
 import {BrandComponent} from "../brand/brand.component";
 import {GalleryComponent} from "../gallery/gallery.component";
+import {LoginService} from "../login/login.service";
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'home', component: HomeComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'product', component: ProductComponent},
-  {path: 'category', component: CategoryComponent},
-  {path: 'subCategory', component: SubCategoryComponent},
-  {path: 'model', component: ModelComponent},
-  {path: 'brand', component: BrandComponent},
-  {path: 'gallery', component: GalleryComponent}
+  {path: 'home', component: HomeComponent, canActivate: [LoginService]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [LoginService]},
+  {path: 'product', component: ProductComponent, canActivate: [LoginService]},
+  {path: 'category', component: CategoryComponent, canActivate: [LoginService]},
+  {path: 'subCategory', component: SubCategoryComponent, canActivate: [LoginService]},
+  {path: 'model', component: ModelComponent, canActivate: [LoginService]},
+  {path: 'brand', component: BrandComponent, canActivate: [LoginService]},
+  {path: 'gallery', component: GalleryComponent, canActivate: [LoginService]}
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

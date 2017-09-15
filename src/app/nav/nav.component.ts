@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {LoginService} from "../service/login.service";
+import {LoginService} from "../login/login.service";
 import {User} from "../user/user";
 
 @Component({

@@ -12,7 +12,7 @@ export class GalleryService extends CrudService<Category, number> {
   }
 
   protected getUrl(): string {
-    return environment.proxy + "/gallery";
+    return "/gallery";
   }
 
 }

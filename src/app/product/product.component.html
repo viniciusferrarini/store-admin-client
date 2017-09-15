@@ -91,7 +91,7 @@
       <div class="col-md-6" *ngIf="showModels || objeto.subCategory.connectProducts">
         <div class="form-group">
           <label>Modelos</label>
-          <p-pickList [source]="modelList" [target]="targetList" (onMoveToTarget)="addItem($event)" (onMovetoSource)="removeItem($event)" sourceHeader="Modelos" targetHeader="Selecionados" [responsive]="true" [showSourceControls]="false" [showTargetControls]="false">
+          <p-pickList [source]="sourceList" [target]="targetList" (onMoveToTarget)="addItem($event)" (onMoveToSource)="removeItem($event)" sourceHeader="Modelos" targetHeader="Selecionados" [responsive]="true" [showSourceControls]="false" [showTargetControls]="false">
             <ng-template let-model pTemplate="item">
               <div class="ui-helper-clearfix">
                 <div>{{model.subCategory.name}} - {{model.name}}</div>

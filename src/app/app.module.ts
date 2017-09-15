@@ -2,7 +2,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {LoginService} from "./service/login.service";
+import {LoginService} from "./login/login.service";
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 import {AppRoutingModule} from "./routes/app.routing.module";
@@ -18,8 +18,9 @@ import {BrandModule} from "./brand/brand.module";
 import {LoginModule} from "./login/login.module";
 import {GalleryModule} from "./gallery/gallery.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HttpLoginInterceptor} from "./service/http.login.interceptor";
+import {HttpLoginInterceptor} from "./interceptor/http.login.interceptor";
 import {HttpModule} from "@angular/http";
+import {ToastModule} from "ng2-toastr";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import {HttpModule} from "@angular/http";
     HomeComponent,
     MenuComponent,
     NavComponent,
-    UserComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +44,8 @@ import {HttpModule} from "@angular/http";
     ModelModule,
     BrandModule,
     LoginModule,
-    GalleryModule
+    GalleryModule,
+    ToastModule.forRoot()
   ],
   providers: [
     LoginService,

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/do';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from "rxjs/Observable";
-import {LoginService} from "./login.service";
+import {LoginService} from "../login/login.service";
 import {environment} from "../../environments/environment";
 
 @Injectable()
@@ -11,6 +11,10 @@ export class HttpLoginInterceptor implements HttpInterceptor {
   constructor(private loginService: LoginService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    if (!this.loginService.isAuthorized()) {
+      return next.handle(req);
+    }
 
     const authReq = req.clone({
       headers: req.headers.set('Content-Type', 'application/json').append('Authorization', 'bearer ' + localStorage.getItem("access_token"))

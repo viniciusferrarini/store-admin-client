@@ -12,7 +12,7 @@ export class CategoryService extends CrudService<Category, number> {
   }
 
   protected getUrl(): string {
-    return environment.proxy + "/category";
+    return "/category";
   }
 
 }

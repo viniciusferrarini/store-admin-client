@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 import {Brand} from "./brand";
 import {CrudController} from "../service/crud.controller";
 import {BrandService} from "./brand.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-brand',
@@ -10,8 +11,10 @@ import {BrandService} from "./brand.service";
 })
 export class BrandComponent extends CrudController<Brand, number> {
 
-  constructor(brandService: BrandService) {
-    super(brandService, Brand);
+  constructor(protected toastr: ToastsManager,
+              protected vcr: ViewContainerRef,
+              brandService: BrandService) {
+    super(toastr, vcr, brandService, Brand);
   }
 
 }

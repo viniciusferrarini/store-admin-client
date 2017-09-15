@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {LoginService} from "../service/login.service";
+import {LoginService} from "./login.service";
 import {User} from "app/user/user";
 
 @Component({
@@ -11,7 +11,7 @@ export class LoginComponent {
 
   user: User = new User();
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService) { }
 
   login(user: User) {
     this.loginService.login(user.email, user.password);

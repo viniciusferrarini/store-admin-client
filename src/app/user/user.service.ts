@@ -12,7 +12,7 @@ export class UserService extends CrudService<User, number> {
   }
 
   protected getUrl(): string {
-    return environment.proxy + "/user";
+    return "/user";
   }
 
 }

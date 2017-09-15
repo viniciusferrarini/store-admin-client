@@ -1,5 +1,3 @@
-import {CrudEntity} from "../service/crud.entity";
-
 export class SelectItem {
 
   value: any;

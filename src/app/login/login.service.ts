@@ -39,8 +39,8 @@ export class LoginService implements CanActivate {
       .subscribe(res => {
         this.setLoggedIn(res.json());
       }, error => {
-        if (error.error === "invalid_grant") {
-          this.toastr.error("E-mail ou senha inválido!", "Erro");
+        if (JSON.parse(error._body).error === "invalid_grant") {
+          window.alert("E-mail ou senha inválido!");
         }
         this.logout();
       });

@@ -24,11 +24,10 @@ export class ModelComponent extends CrudController<Model, number> {
   }
 
   getSelectItemList() {
-  this.subCategoryService.get<any>().subscribe(res => {
-    res.forEach(item => {
-      this.selectItemList.push(new SelectItem({id: item.id, name: item.name}, item.name));
+    this.subCategoryService.get<any>().subscribe(res => {
+      res.forEach(item => {
+        this.selectItemList.push(new SelectItem({id: item.id, name: item.name}, item.name));
+      });
     });
-    console.log(res);
-  });
   }
 }

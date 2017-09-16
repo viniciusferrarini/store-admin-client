@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ButtonModule, DataTableModule, DialogModule, GrowlModule, InputTextModule, SharedModule} from "primeng/primeng";
+import {ButtonModule, DataTableModule, DialogModule, InputTextModule, SharedModule} from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
 import {ModelComponent} from "./model.component";
 import {ModelService} from "./model.service";
@@ -16,7 +16,6 @@ import {DropdownModule} from "primeng/components/dropdown/dropdown";
     DialogModule,
     InputTextModule,
     FormsModule,
-    GrowlModule,
     DropdownModule
   ],
   declarations: [ModelComponent],

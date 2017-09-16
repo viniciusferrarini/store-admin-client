@@ -7,7 +7,6 @@ import {CategoryComponent} from "../category/category.component";
 import {ModelComponent} from "../model/model.component";
 import {SubCategoryComponent} from "../sub-category/sub-category.component";
 import {BrandComponent} from "../brand/brand.component";
-import {GalleryComponent} from "../gallery/gallery.component";
 import {LoginService} from "../login/login.service";
 
 const routes: Routes = [
@@ -19,8 +18,7 @@ const routes: Routes = [
   {path: 'category', component: CategoryComponent, canActivate: [LoginService]},
   {path: 'subCategory', component: SubCategoryComponent, canActivate: [LoginService]},
   {path: 'model', component: ModelComponent, canActivate: [LoginService]},
-  {path: 'brand', component: BrandComponent, canActivate: [LoginService]},
-  {path: 'gallery', component: GalleryComponent, canActivate: [LoginService]}
+  {path: 'brand', component: BrandComponent, canActivate: [LoginService]}
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

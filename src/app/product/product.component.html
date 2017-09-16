@@ -35,7 +35,7 @@
       </p-dataTable>
     </div>
   </div>
-  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" >
+  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" >
     <p-header>
       {{acao}}
     </p-header>
@@ -102,9 +102,40 @@
       </div>
     </div>
     <p-footer>
-      <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
-      <button type="button" class="btn btn-effect-ripple btn-danger" (click)="remove()"><i class="fa fa-trash" aria-hidden="true"></i> Deletar</button>
-      <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
+      <div class="row">
+        <div class="col-md-2">
+          <button type="button" class="btn btn-effect-ripple btn-primary" (click)="displayGallery = true;" style="float: left"><i class="fa fa-picture-o" aria-hidden="true"></i> Adicionar Fotos</button>
+        </div>
+        <div class="col-md-10">
+          <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
+          <button type="button" class="btn btn-effect-ripple btn-danger" (click)="remove()"><i class="fa fa-trash" aria-hidden="true"></i> Deletar</button>
+          <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
+        </div>
+      </div>
+    </p-footer>
+  </p-dialog>
+  <p-dialog [(visible)]="displayGallery" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" >
+    <p-header>
+      Galeria de fotos do produto: {{this.objeto.name}}
+    </p-header>
+    <div class="row">
+      <div class="col-md-8">
+        <p-fileUpload name="files" url="{{uploadUrl}}" (onBeforeSend)="onBeforeUpload($event)" (onUpload)="onUpload($event)" multiple="multiple" accept="image/*" maxFileSize="10000000"></p-fileUpload>
+      </div>
+      <div class="col-md-4">
+        <ul>
+          <li *ngFor="let picture of objeto.gallery">
+            <img [src]="photoURL('G:/Workspace/images/' + picture.picture)" />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p-footer>
+      <div class="row">
+        <div class="col-md-10">
+          <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
+        </div>
+      </div>
     </p-footer>
   </p-dialog>
 </div>

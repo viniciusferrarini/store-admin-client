@@ -3,7 +3,9 @@ import {CommonModule} from '@angular/common';
 import {
   ButtonModule,
   DataTableModule,
-  DialogModule, DropdownModule,
+  DialogModule,
+  DropdownModule,
+  FileUploadModule,
   GrowlModule,
   InputTextareaModule,
   InputTextModule,
@@ -27,7 +29,8 @@ import {ModelService} from "../model/model.service";
     GrowlModule,
     InputTextareaModule,
     PickListModule,
-    DropdownModule
+    DropdownModule,
+    FileUploadModule
   ],
   declarations: [ProductComponent],
   exports: [ProductComponent],

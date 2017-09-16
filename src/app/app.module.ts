@@ -16,7 +16,6 @@ import {SubCategoryModule} from "./sub-category/sub-category.module";
 import {ModelModule} from "./model/model.module";
 import {BrandModule} from "./brand/brand.module";
 import {LoginModule} from "./login/login.module";
-import {GalleryModule} from "./gallery/gallery.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpLoginInterceptor} from "./interceptor/http.login.interceptor";
 import {HttpModule} from "@angular/http";
@@ -44,7 +43,6 @@ import {ToastModule} from "ng2-toastr";
     ModelModule,
     BrandModule,
     LoginModule,
-    GalleryModule,
     ToastModule.forRoot()
   ],
   providers: [

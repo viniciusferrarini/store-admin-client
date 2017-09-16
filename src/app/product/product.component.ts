@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, Input, ViewContainerRef} from '@angular/core';
 import {CrudController} from "../service/crud.controller";
 import {Product} from "./product";
 import {ProductService} from "./product.service";
@@ -8,8 +8,9 @@ import {SelectItem} from "../entity/dto/select.item";
 import {SubCategoryService} from "../sub-category/sub-category.service";
 import {BrandService} from "../brand/brand.service";
 import {ProductModel} from "../entity/product.model";
-import {letProto} from "rxjs/operator/let";
 import {ToastsManager} from "ng2-toastr";
+import {environment} from "../../environments/environment";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   moduleId: module.id,
@@ -25,13 +26,16 @@ export class ProductComponent extends CrudController<Product, number> {
   @Input() modelList: Model[] = [];
   brandList: SelectItem[] = [];
   subCategoryList: SelectItem[] = [];
+  uploadUrl = `${environment.proxy}/gallery/upload`;
+  displayGallery: boolean;
 
   constructor(protected toastr: ToastsManager,
               protected vcr: ViewContainerRef,
               productService: ProductService,
               private modelService: ModelService,
               private subCategoryService: SubCategoryService,
-              private brandService: BrandService) {
+              private brandService: BrandService,
+              private sanitizer: DomSanitizer) {
     super(toastr, vcr, productService, Product);
     this.getModelsList();
     this.getSubCategoryList();
@@ -115,4 +119,18 @@ export class ProductComponent extends CrudController<Product, number> {
       }
     }
   }
+
+  onBeforeUpload(event) {
+    event.xhr.setRequestHeader('Authorization', 'bearer ' + localStorage.getItem("access_token"));
+    event.formData.append('productId', this.objeto.id);
+  }
+
+  onUpload(event) {
+    this.objeto.gallery = JSON.parse(event.xhr.response);
+  }
+
+  photoURL(url) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
 }

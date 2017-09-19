@@ -10,7 +10,9 @@ import {BrandService} from "../brand/brand.service";
 import {ProductModel} from "../entity/product.model";
 import {ToastsManager} from "ng2-toastr";
 import {environment} from "../../environments/environment";
-import {DomSanitizer} from "@angular/platform-browser";
+import {ProductGalleryService} from "../product-gallery/product-gallery.service";
+import {HttpClient} from "@angular/common/http";
+import {ProductGallery} from "../product-gallery/product.gallery";
 
 @Component({
   moduleId: module.id,
@@ -21,9 +23,9 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class ProductComponent extends CrudController<Product, number> {
 
   showModels: boolean;
-  @Input() sourceList: Model[] = [];
-  @Input() targetList: Model[] = [];
-  @Input() modelList: Model[] = [];
+  sourceList: Model[] = [];
+  targetList: Model[] = [];
+  modelList: Model[] = [];
   brandList: SelectItem[] = [];
   subCategoryList: SelectItem[] = [];
   uploadUrl = `${environment.proxy}/gallery/upload`;
@@ -35,7 +37,8 @@ export class ProductComponent extends CrudController<Product, number> {
               private modelService: ModelService,
               private subCategoryService: SubCategoryService,
               private brandService: BrandService,
-              private sanitizer: DomSanitizer) {
+              private productGalleryService: ProductGalleryService,
+              private http: HttpClient) {
     super(toastr, vcr, productService, Product);
     this.getModelsList();
     this.getSubCategoryList();
@@ -49,8 +52,7 @@ export class ProductComponent extends CrudController<Product, number> {
   }
 
   getModelsList() {
-    this.modelService
-      .get()
+    this.modelService.get()
       .subscribe((data: any[]) => this.modelList = data,
         error => () => {
           console.log(error);
@@ -126,11 +128,17 @@ export class ProductComponent extends CrudController<Product, number> {
   }
 
   onUpload(event) {
-    this.objeto.gallery = JSON.parse(event.xhr.response);
+    const imagens = JSON.parse(event.xhr.response);
+    imagens.forEach(picture => {
+      this.objeto.gallery.push(picture);
+    });
   }
 
-  photoURL(url) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+  getPhoto(picture) {
+    return environment.proxy + '/gallery/picture/' + picture + '?access_token=' + localStorage.getItem('access_token');
   }
 
+  removePicture(id) {
+    this.http.delete(environment.proxy + '/gallery/' + JSON.stringify(id)).subscribe((res) => { });
+  }
 }

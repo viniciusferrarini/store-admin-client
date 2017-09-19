@@ -16,6 +16,7 @@ import {ProductComponent} from "./product.component";
 import {ProductService} from "./product.service";
 import {PickListModule} from "primeng/components/picklist/picklist";
 import {ModelService} from "../model/model.service";
+import {ProductGalleryService} from "../product-gallery/product-gallery.service";
 
 @NgModule({
   imports: [
@@ -34,6 +35,6 @@ import {ModelService} from "../model/model.service";
   ],
   declarations: [ProductComponent],
   exports: [ProductComponent],
-  providers: [ProductService, ModelService]
+  providers: [ProductService, ProductGalleryService]
 })
 export class ProductModule { }

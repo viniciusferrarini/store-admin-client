@@ -114,26 +114,29 @@
       </div>
     </p-footer>
   </p-dialog>
-  <p-dialog [(visible)]="displayGallery" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" >
+  <p-dialog [(visible)]="displayGallery" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" [width]="550">
     <p-header>
       Galeria de fotos do produto: {{this.objeto.name}}
     </p-header>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <p-fileUpload name="files" url="{{uploadUrl}}" (onBeforeSend)="onBeforeUpload($event)" (onUpload)="onUpload($event)" multiple="multiple" accept="image/*" maxFileSize="10000000"></p-fileUpload>
       </div>
-      <div class="col-md-4">
-        <ul>
-          <li *ngFor="let picture of objeto.gallery">
-            <img [src]="photoURL('G:/Workspace/images/' + picture.picture)" />
-          </li>
-        </ul>
+    </div>
+    <div class="row m-t-10" style="max-width: 550px;">
+      <div class="col-md-3" *ngFor="let picture of objeto.gallery">
+        <div class="thumbnail">
+          <img [src]="getPhoto(picture.picture)" style="max-width: 100px;"/>
+        </div>
+        <button (click)="removePicture(picture.id)" class="badge badge-sm up bg-danger picture-remove b-0">
+          <i class="fa fa-close"></i>
+        </button>
       </div>
     </div>
     <p-footer>
       <div class="row">
         <div class="col-md-10">
-          <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
+          <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayGallery=false"><i class="fa fa-close"></i> Fechar</button>
         </div>
       </div>
     </p-footer>

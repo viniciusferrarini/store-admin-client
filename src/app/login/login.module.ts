@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {LoginComponent} from "./login.component";
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {GrowlModule, PasswordModule} from "primeng/primeng";
+import {GrowlModule} from "primeng/primeng";
 
 @NgModule({
   declarations: [LoginComponent],
@@ -11,8 +11,7 @@ import {GrowlModule, PasswordModule} from "primeng/primeng";
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    GrowlModule,
-    PasswordModule
+    GrowlModule
   ]
 })
 export class LoginModule {

@@ -5,6 +5,7 @@ import {CrudController} from "../service/crud.controller";
 import {UserService} from "./user.service";
 
 @Component({
+  moduleId: module.id,
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
@@ -15,9 +16,6 @@ export class UserComponent extends CrudController<User, number> implements OnIni
               protected vcr: ViewContainerRef,
               userService: UserService) {
     super(toastr, vcr, userService, User);
-  }
-
-  ngOnInit() {
   }
 
 }

@@ -5,4 +5,6 @@ export class User implements CrudEntity<number> {
   name: string;
   email: string;
   password: string;
+  cpfCnpj: string;
+  adress: Adress[];
 }

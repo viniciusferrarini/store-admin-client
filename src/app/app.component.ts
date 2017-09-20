@@ -8,8 +8,6 @@ import {User} from "./user/user";
 })
 export class AppComponent implements OnInit {
 
-  user: User = new User();
-
   constructor() {
   }
 

@@ -128,14 +128,14 @@
         <div class="thumbnail">
           <img [src]="getPhoto(picture.picture)" style="max-width: 100px;"/>
         </div>
-        <button (click)="removePicture(picture.id)" class="badge badge-sm up bg-danger picture-remove b-0">
+        <button (click)="removePicture(picture)" class="badge badge-sm up bg-danger picture-remove b-0">
           <i class="fa fa-close"></i>
         </button>
       </div>
     </div>
     <p-footer>
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
           <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayGallery=false"><i class="fa fa-close"></i> Fechar</button>
         </div>
       </div>

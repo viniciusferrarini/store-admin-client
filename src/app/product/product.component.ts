@@ -1,4 +1,4 @@
-import {Component, Input, ViewContainerRef} from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 import {CrudController} from "../service/crud.controller";
 import {Product} from "./product";
 import {ProductService} from "./product.service";
@@ -10,9 +10,7 @@ import {BrandService} from "../brand/brand.service";
 import {ProductModel} from "../entity/product.model";
 import {ToastsManager} from "ng2-toastr";
 import {environment} from "../../environments/environment";
-import {ProductGalleryService} from "../product-gallery/product-gallery.service";
 import {HttpClient} from "@angular/common/http";
-import {ProductGallery} from "../product-gallery/product.gallery";
 
 @Component({
   moduleId: module.id,
@@ -37,7 +35,6 @@ export class ProductComponent extends CrudController<Product, number> {
               private modelService: ModelService,
               private subCategoryService: SubCategoryService,
               private brandService: BrandService,
-              private productGalleryService: ProductGalleryService,
               private http: HttpClient) {
     super(toastr, vcr, productService, Product);
     this.getModelsList();
@@ -128,17 +125,34 @@ export class ProductComponent extends CrudController<Product, number> {
   }
 
   onUpload(event) {
-    const imagens = JSON.parse(event.xhr.response);
-    imagens.forEach(picture => {
-      this.objeto.gallery.push(picture);
-    });
+    if (event.xhr.status === 200) {
+      const imagens = JSON.parse(event.xhr.response);
+      imagens.forEach(picture => {
+        this.objeto.gallery.push(picture);
+      });
+      let msg = "";
+      if (imagens.length > 1) {
+        msg = imagens.length + " novas imagens adicionadas com sucesso!";
+      } else if (imagens.length === 1) {
+        msg = "Imagem adicionada com sucesso!";
+      }
+      this.toastr.success(msg, "Sucesso!");
+    } else {
+      this.toastr.error("Erro ao realizar upload da imagem! ", "Sucesso!");
+    }
   }
 
   getPhoto(picture) {
     return environment.proxy + '/gallery/picture/' + picture + '?access_token=' + localStorage.getItem('access_token');
   }
 
-  removePicture(id) {
-    this.http.delete(environment.proxy + '/gallery/' + JSON.stringify(id)).subscribe((res) => { });
+  removePicture(picture) {
+    this.http.post(environment.proxy + '/gallery/delete', picture).subscribe((res) => {
+      const index = this.objeto.gallery.indexOf(picture);
+      this.objeto.gallery.splice(index, 1);
+      this.toastr.success("Imagem removida com sucesso!", "Sucesso!");
+    }, error => {
+      this.toastr.error("Ocorreu um erro ao remover a imagem! " + error.message, "Erro!")
+    });
   }
 }

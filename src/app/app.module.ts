@@ -10,7 +10,6 @@ import {MenuComponent} from "./menu/menu.component";
 import {NavComponent} from "./nav/nav.component";
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {ProductModule} from "./product/product.module";
-import {UserComponent} from './user/user.component';
 import {CategoryModule} from "./category/category.module";
 import {SubCategoryModule} from "./sub-category/sub-category.module";
 import {ModelModule} from "./model/model.module";
@@ -20,14 +19,14 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpLoginInterceptor} from "./interceptor/http.login.interceptor";
 import {HttpModule} from "@angular/http";
 import {ToastModule} from "ng2-toastr";
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MenuComponent,
-    NavComponent,
-    UserComponent
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +42,7 @@ import {ToastModule} from "ng2-toastr";
     ModelModule,
     BrandModule,
     LoginModule,
+    UserModule,
     ToastModule.forRoot()
   ],
   providers: [

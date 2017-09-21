@@ -12,10 +12,17 @@ import {UserService} from "./user.service";
 })
 export class UserComponent extends CrudController<User, number> implements OnInit {
 
+  displayAdress: Boolean = false;
+
   constructor(protected toastr: ToastsManager,
               protected vcr: ViewContainerRef,
               userService: UserService) {
     super(toastr, vcr, userService, User);
+  }
+
+  showAdress(item) {
+    this.displayAdress = true;
+    this.objeto = item;
   }
 
 }

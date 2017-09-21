@@ -13,21 +13,26 @@ import {ToastsManager} from "ng2-toastr";
 })
 export class ModelComponent extends CrudController<Model, number> {
 
-  selectItemList: SelectItem[] = [];
+  subCategoryList: SelectItem[] = [];
 
   constructor(protected toastr: ToastsManager,
               protected vcr: ViewContainerRef,
               modelService: ModelService,
               private subCategoryService: SubCategoryService) {
     super(toastr, vcr, modelService, Model);
-    this.getSelectItemList();
+    this.getSubCategoryList();
   }
 
-  getSelectItemList() {
+  getSubCategoryList() {
     this.subCategoryService.get<any>().subscribe(res => {
       res.forEach(item => {
-        this.selectItemList.push(new SelectItem({id: item.id, name: item.name}, item.name));
+        this.subCategoryList.push(new SelectItem({
+          id: item.id,
+          name: item.name,
+          category: item.category,
+          connectProducts: item.connectProducts
+        }, item.name));
       });
-    });
+    })
   }
 }

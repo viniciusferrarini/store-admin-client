@@ -2,9 +2,8 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule, DataTableModule, DialogModule, InputTextModule, SharedModule} from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
-import {UserComponent} from "./user.component";
-import {UserService} from "./user.service";
-import {UserAdressModule} from "../user-adress/user-adress.module";
+import {UserAdressComponent} from "./user-adress.component";
+import {UserAdressService} from "./user-adress.service";
 
 @NgModule({
   imports: [
@@ -14,11 +13,10 @@ import {UserAdressModule} from "../user-adress/user-adress.module";
     SharedModule,
     DialogModule,
     InputTextModule,
-    FormsModule,
-    UserAdressModule
+    FormsModule
   ],
-  declarations: [UserComponent],
-  exports: [UserComponent],
-  providers: [UserService]
+  declarations: [UserAdressComponent],
+  exports: [UserAdressComponent],
+  providers: [UserAdressService]
 })
-export class UserModule { }
+export class UserAdressModule { }

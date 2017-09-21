@@ -42,10 +42,16 @@ export class ProductComponent extends CrudController<Product, number> {
     this.getBrandList();
   }
 
-  onRowSelect() {
+  onRowSelect(item) {
+    this.objeto = item;
     this.preSelectModels();
     this.displayEdit = true;
     this.acao = "Editar ";
+  }
+
+  showGallery(item) {
+    this.displayGallery = true;
+    this.objeto = item;
   }
 
   getModelsList() {

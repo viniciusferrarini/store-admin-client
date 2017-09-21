@@ -10,6 +10,7 @@ import {BrandComponent} from "../brand/brand.component";
 import {LoginService} from "../login/login.service";
 import {UserService} from "../user/user.service";
 import {UserComponent} from "../user/user.component";
+import {UserAdressComponent} from "../user-adress/user-adress.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},

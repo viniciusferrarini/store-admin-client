@@ -74,9 +74,10 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
     this.acao = "Cadastro";
   };
 
-  remove() {
-    this.crudService.delete<any>(JSON.stringify(this.objeto.id))
+  remove(item) {
+    this.crudService.delete<any>(JSON.stringify(item.id))
       .subscribe(res => {
+        this.toastr.success("Registro removido com sucesso!", "Sucesso!");
         const listTemp = [...this.lista];
         const index = listTemp.indexOf(this.objeto);
         listTemp.splice(index, 1);
@@ -87,7 +88,8 @@ export abstract class CrudController<T extends CrudEntity<ID>, ID> implements On
       });
   };
 
-  onRowSelect() {
+  onRowSelect(item) {
+    this.objeto = item;
     this.displayEdit = true;
     this.acao = "Editar ";
   };

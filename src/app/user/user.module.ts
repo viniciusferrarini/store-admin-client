@@ -4,7 +4,6 @@ import {ButtonModule, DataTableModule, DialogModule, InputTextModule, SharedModu
 import {FormsModule} from "@angular/forms";
 import {UserComponent} from "./user.component";
 import {UserService} from "./user.service";
-import {UserAdressModule} from "../user-adress/user-adress.module";
 
 @NgModule({
   imports: [
@@ -14,8 +13,7 @@ import {UserAdressModule} from "../user-adress/user-adress.module";
     SharedModule,
     DialogModule,
     InputTextModule,
-    FormsModule,
-    UserAdressModule
+    FormsModule
   ],
   declarations: [UserComponent],
   exports: [UserComponent],

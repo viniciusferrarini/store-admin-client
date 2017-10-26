@@ -32,7 +32,6 @@
         <p-column header="Opções" styleClass="text-center">
           <ng-template let-item="rowData" let-i="rowIndex" pTemplate="body">
             <div class="btn-group">
-              <button type="button" class="btn btn-effect-ripple btn-info" (click)="showAdress(item)"><i class="fa fa-home" aria-hidden="true"></i></button>
               <button type="button" class="btn btn-effect-ripple btn-primary" (click)="onRowSelect(item)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
               <button type="button" class="btn btn-effect-ripple btn-danger" (click)="remove(item)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
@@ -70,18 +69,6 @@
     <p-footer>
       <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
       <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
-    </p-footer>
-  </p-dialog>
-  <p-dialog [(visible)]="displayAdress" [responsive]="true" showEffect="fade" [width]="800" [draggable]="false" [modal]="true">
-    <p-header>
-      Endereços do usuário: {{objeto.name}}
-    </p-header>
-    <div style="overflow: hidden">
-      <app-user-adress [user]="objeto"></app-user-adress>
-    </div>
-    <p-footer>
-      <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
-      <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayAdress=false"><i class="fa fa-close"></i> Fechar</button>
     </p-footer>
   </p-dialog>
 </div>

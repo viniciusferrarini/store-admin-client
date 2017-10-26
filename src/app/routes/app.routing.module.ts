@@ -8,9 +8,9 @@ import {ModelComponent} from "../model/model.component";
 import {SubCategoryComponent} from "../sub-category/sub-category.component";
 import {BrandComponent} from "../brand/brand.component";
 import {LoginService} from "../login/login.service";
-import {UserService} from "../user/user.service";
 import {UserComponent} from "../user/user.component";
-import {UserAdressComponent} from "../user-adress/user-adress.component";
+import {BuyService} from "../buy/buy.service";
+import {BuyComponent} from "../buy/buy.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -22,7 +22,8 @@ const routes: Routes = [
   {path: 'subCategory', component: SubCategoryComponent, canActivate: [LoginService]},
   {path: 'model', component: ModelComponent, canActivate: [LoginService]},
   {path: 'brand', component: BrandComponent, canActivate: [LoginService]},
-  {path: 'user', component: UserComponent, canActivate: [LoginService]}
+  {path: 'user', component: UserComponent, canActivate: [LoginService]},
+  {path: 'buy', component: BuyComponent, canActivate: [LoginService]}
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

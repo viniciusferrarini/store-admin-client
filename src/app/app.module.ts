@@ -20,8 +20,7 @@ import {HttpLoginInterceptor} from "./interceptor/http.login.interceptor";
 import {HttpModule} from "@angular/http";
 import {ToastModule} from "ng2-toastr";
 import {UserModule} from "./user/user.module";
-import { UserAdressComponent } from './user-adress/user-adress.component';
-import {UserAdressModule} from "./user-adress/user-adress.module";
+import {BuyModule} from "./buy/buy.module";
 
 @NgModule({
   declarations: [
@@ -45,7 +44,7 @@ import {UserAdressModule} from "./user-adress/user-adress.module";
     BrandModule,
     LoginModule,
     UserModule,
-    UserAdressModule,
+    BuyModule,
     ToastModule.forRoot()
   ],
   providers: [

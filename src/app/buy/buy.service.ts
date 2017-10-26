@@ -1,17 +1,16 @@
+import {Injectable} from '@angular/core';
 import {CrudService} from "../service/crud.service";
-import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {UserAdress} from "./user-adress";
+import {Buy} from "./buy";
 
 @Injectable()
-export class UserAdressService extends CrudService<UserAdress, number> {
+export class BuyService extends CrudService<Buy, number> {
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }
 
   protected getUrl(): string {
-    return "/userAdress";
+    return "/buy";
   }
-
 }

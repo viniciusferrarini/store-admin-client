@@ -6,6 +6,6 @@ export class User implements CrudEntity<number> {
   email: string;
   password: string;
   cpfCnpj: string;
-  bithday: Date;
+  birthday: Date;
   telephone: string;
 }

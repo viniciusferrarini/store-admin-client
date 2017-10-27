@@ -28,7 +28,7 @@
         <p-column field="id" header="Código"></p-column>
         <p-column field="name" header="Nome"></p-column>
         <p-column field="email" header="E-mail"></p-column>
-        <p-column field="CPF/CNPJ" header="CPF/CNPJ"></p-column>
+        <p-column field="cpfCnpj" header="CPF/CNPJ"></p-column>
         <p-column header="Opções" styleClass="text-center">
           <ng-template let-item="rowData" let-i="rowIndex" pTemplate="body">
             <div class="btn-group">
@@ -58,12 +58,20 @@
         <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
       </div>
       <div class="form-group">
-        <label for="name">E-mail</label>
+        <label for="email">E-mail</label>
         <input class="form-control" type="text" pInputText [(ngModel)]="objeto.email" id="email" min="4"/>
       </div>
       <div class="form-group">
-        <label for="name">CPF/CNPJ</label>
+        <label for="cpfCnpj">CPF/CNPJ</label>
         <input class="form-control" type="text" pInputText [(ngModel)]="objeto.cpfCnpj" id="cpfCnpj" min="4"/>
+      </div>
+      <div class="form-group">
+        <label for="birthday">Data de Nascimento</label>
+        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.birthdayFormatted" id="birthday"/>
+      </div>
+      <div class="form-group">
+        <label for="telephone">Telefone</label>
+        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.telephone" id="telephone"/>
       </div>
     </div>
     <p-footer>

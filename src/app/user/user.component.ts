@@ -12,10 +12,28 @@ import {UserService} from "./user.service";
 })
 export class UserComponent extends CrudController<User, number> implements OnInit {
 
+  public dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+  public cellPhoneMask = ['(', /[1-9]/, /[1-9]/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
   constructor(protected toastr: ToastsManager,
               protected vcr: ViewContainerRef,
               userService: UserService) {
     super(toastr, vcr, userService, User);
   }
 
+  cpfCnpjMask() {
+    if(this.objeto.cpfCnpj !== undefined && this.objeto.cpfCnpj !== "") {
+      let numbers = this.objeto.cpfCnpj.match(/\d/g);
+      let numberLength = 0;
+      if (numbers) {
+        numberLength = numbers.join("").length;
+      }
+      if (numberLength > 11) {
+        return [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,];
+      } else {
+        return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+      }
+    }
+    return [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+  }
 }

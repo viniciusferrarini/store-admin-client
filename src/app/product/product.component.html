@@ -41,75 +41,113 @@
       </p-dataTable>
     </div>
   </div>
-  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" >
+  <p-dialog [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [draggable]="false" [modal]="true" [minWidth]="600" >
     <p-header>
       {{acao}}
     </p-header>
-    <div class="row">
-      <div [ngClass]="showModels || objeto.subCategory.connectProducts ? 'col-md-6' : 'col-md-12'">
-        <div class="ui-grid ui-grid-responsive ui-fluid">
-          <div class="row">
-            <div class="col-md-2">
-              <div class="form-group">
-                <label for="codigo">Código</label>
-                <input class="form-control" type="text" pInputText [(ngModel)]="objeto.id" disabled id="codigo"/>
+    <form #productForm="ngForm">
+      <div class="row">
+        <div [ngClass]="showModels || objeto.subCategory.connectProducts ? 'col-md-6' : 'col-md-12'">
+          <div class="ui-grid ui-grid-responsive ui-fluid">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="codigo">Código</label>
+                  <input [(ngModel)]="objeto.id" name="codigo" id="codigo" class="form-control" type="text" pInputText disabled />
+                </div>
+              </div>
+              <div class="col-md-10">
+                <div class="form-group" [ngClass]="{'has-error': !name.valid && (name.dirty || name.touched)}">
+                  <label for="name">Nome</label>
+                  <input [(ngModel)]="objeto.name" name="name" id="name" class="form-control" type="text" pInputText min="4" #name="ngModel" required minlength="4" />
+                  <div class="help-block" *ngIf="name.errors && (name.dirty || name.touched)">
+                    <ul class="list-unstyled">
+                      <li *ngIf="name.errors.required">
+                        O campo nome deve ser preenchido!
+                      </li>
+                      <li *ngIf="name.errors.minlength">
+                        O nome deve conter no minimo 4 letras!
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-md-10">
-              <div class="form-group">
-                <label for="name">Nome</label>
-                <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': !amount.valid && (amount.dirty || amount.touched)}">
+                  <label for="amount">Quantidade</label>
+                  <input [(ngModel)]="objeto.amount" name="amount" id="amount" class="form-control" type="number" pInputText required #amount="ngModel"/>
+                  <div class="help-block" *ngIf="amount.errors && (amount.dirty || amount.touched)">
+                    <ul class="list-unstyled">
+                      <li *ngIf="amount.errors.required">
+                        O campo quantidade deve ser preenchido!
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="{'has-error': !value.valid && (value.dirty || value.touched)}">
+                  <label for="value">Valor</label>
+                  <input [(ngModel)]="objeto.value" name="value" id="value" class="form-control" pInputText #value="ngModel" required currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                  <div class="help-block" *ngIf="value.errors && (value.dirty || value.touched)">
+                    <ul class="list-unstyled">
+                      <li *ngIf="value.errors.required">
+                        O campo valor deve ser preenchido!
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group" [ngClass]="{'has-error': !description.valid && (description.dirty || description.touched)}">
+                  <label for="description">Descrição</label>
+                  <textarea [(ngModel)]="objeto.description" name="description" id="description" class="form-control" pInputTextarea required #description="ngModel"></textarea>
+                  <div class="help-block" *ngIf="description.errors && (description.dirty || description.touched)">
+                    <ul class="list-unstyled">
+                      <li *ngIf="description.errors.required">
+                        O campo descrição deve ser preenchido!
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="brand">Marca</label>
+              <p-dropdown [(ngModel)]="objeto.brand" name="brand" id="brand" [options]="brandList"
+                          placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
+            </div>
+            <div class="form-group">
+              <label for="subCategory">Sub Categoria</label>
+              <p-dropdown [(ngModel)]="objeto.subCategory" name="subCategory" id="subCategory" [options]="subCategoryList"
+                          placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body" (onChange)="subCategoryChange($event)">
+              </p-dropdown>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="quantidade">Quantidade</label>
-                <input class="form-control" type="number" pInputText [(ngModel)]="objeto.amount" id="quantidade"/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="valor">Valor</label>
-                <input class="form-control" type="number" pInputText [(ngModel)]="objeto.value" id="valor"/>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="descricao">Descrição</label>
-                <textarea pInputTextarea id="descricao" [(ngModel)]="objeto.description"></textarea>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div class="col-md-6" *ngIf="showModels || objeto.subCategory.connectProducts">
           <div class="form-group">
-            <label>Marca</label>
-            <p-dropdown [options]="brandList" [(ngModel)]="objeto.brand" placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body"></p-dropdown>
-          </div>
-          <div class="form-group">
-            <label>Sub Categoria</label>
-            <p-dropdown [options]="subCategoryList" [(ngModel)]="objeto.subCategory" placeholder="Sub Categorias" [style]="{'width':'100%'}" appendTo="body" (onChange)="subCategoryChange($event)"></p-dropdown>
+            <label>Modelos</label>
+            <p-pickList [source]="sourceList" [target]="targetList" (onMoveToTarget)="addItem($event)"
+                        (onMoveToSource)="removeItem($event)" sourceHeader="Modelos" targetHeader="Selecionados"
+                        [responsive]="true" [showSourceControls]="false" [showTargetControls]="false">
+              <ng-template let-model pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <div>{{model.subCategory.name}} - {{model.name}}</div>
+                </div>
+              </ng-template>
+            </p-pickList>
           </div>
         </div>
       </div>
-      <div class="col-md-6" *ngIf="showModels || objeto.subCategory.connectProducts">
-        <div class="form-group">
-          <label>Modelos</label>
-          <p-pickList [source]="sourceList" [target]="targetList" (onMoveToTarget)="addItem($event)" (onMoveToSource)="removeItem($event)" sourceHeader="Modelos" targetHeader="Selecionados" [responsive]="true" [showSourceControls]="false" [showTargetControls]="false">
-            <ng-template let-model pTemplate="item">
-              <div class="ui-helper-clearfix">
-                <div>{{model.subCategory.name}} - {{model.name}}</div>
-              </div>
-            </ng-template>
-          </p-pickList>
-        </div>
-      </div>
-    </div>
+    </form>
     <p-footer>
       <div class="row">
-        <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
+        <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()" [disabled]="!productForm.valid"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
         <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
       </div>
     </p-footer>

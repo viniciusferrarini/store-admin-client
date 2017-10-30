@@ -4,6 +4,7 @@ import {ButtonModule, DataTableModule, DialogModule, InputTextModule, SharedModu
 import {FormsModule} from "@angular/forms";
 import {UserComponent} from "./user.component";
 import {UserService} from "./user.service";
+import {TextMaskModule} from "angular2-text-mask";
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {UserService} from "./user.service";
     SharedModule,
     DialogModule,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    TextMaskModule
   ],
   declarations: [UserComponent],
   exports: [UserComponent],

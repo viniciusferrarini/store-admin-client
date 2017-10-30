@@ -15,8 +15,8 @@ import {FormsModule} from "@angular/forms";
 import {ProductComponent} from "./product.component";
 import {ProductService} from "./product.service";
 import {PickListModule} from "primeng/components/picklist/picklist";
-import {ModelService} from "../model/model.service";
 import {ProductGalleryService} from "../product-gallery/product-gallery.service";
+import {CurrencyMaskModule} from "ng2-currency-mask";
 
 @NgModule({
   imports: [
@@ -31,7 +31,8 @@ import {ProductGalleryService} from "../product-gallery/product-gallery.service"
     InputTextareaModule,
     PickListModule,
     DropdownModule,
-    FileUploadModule
+    FileUploadModule,
+    CurrencyMaskModule
   ],
   declarations: [ProductComponent],
   exports: [ProductComponent],

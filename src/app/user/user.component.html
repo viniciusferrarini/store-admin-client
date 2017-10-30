@@ -44,38 +44,67 @@
     <p-header>
       {{acao}}
     </p-header>
+    <form #userForm="ngForm">
     <div style="overflow: hidden">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label for="codigo">Código</label>
-            <input class="form-control" type="text" pInputText [(ngModel)]="objeto.id" disabled id="codigo"/>
+            <input [(ngModel)]="objeto.id" name="codigo" id="codigo" class="form-control" type="text" pInputText disabled />
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error': !name.valid && (name.dirty || name.touched)}">
         <label for="name">Nome</label>
-        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.name" id="name" min="4"/>
+        <input [(ngModel)]="objeto.name" name="name" id="name" class="form-control" type="text" pInputText  minlength="3" required #name="ngModel"/>
+        <div class="help-block" *ngIf="name.errors && (name.dirty || name.touched)">
+          <ul class="list-unstyled">
+            <li *ngIf="name.errors.required">
+              O campo nome deve ser preenchido!
+            </li>
+            <li *ngIf="name.errors.minlength">
+              O nome deve conter no minimo 3 letras!
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error': !email.valid && (email.dirty || email.touched)}">
         <label for="email">E-mail</label>
-        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.email" id="email" min="4"/>
+        <input [(ngModel)]="objeto.email" name="email" id="email" class="form-control" type="text" pInputText required email #email="ngModel"/>
+        <div class="help-block" *ngIf="email.errors && (email.dirty || email.touched)">
+          <ul class="list-unstyled">
+            <li *ngIf="email.errors.required">
+              O campo E-mail deve ser preenchido!
+            </li>
+            <li *ngIf="!email.errors.required && email.errors.email">
+              O e-mail é inválido!
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error': !cpfCnpj.valid && (cpfCnpj.dirty || cpfCnpj.touched)}">
         <label for="cpfCnpj">CPF/CNPJ</label>
-        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.cpfCnpj" id="cpfCnpj" min="4"/>
+        <input [(ngModel)]="objeto.cpfCnpj" name="cpfCnpj" id="cpfCnpj" class="form-control" type="text" pInputText required #cpfCnpj="ngModel" [textMask]="{mask: cpfCnpjMask(), guide: false}"/>
+        <div class="help-block" *ngIf="cpfCnpj.errors && (cpfCnpj.dirty || cpfCnpj.touched)">
+          <ul class="list-unstyled">
+            <li *ngIf="cpfCnpj.errors.required">
+              O campo CPF/CNPJ deve ser preenchido!
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="form-group">
         <label for="birthday">Data de Nascimento</label>
-        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.birthdayFormatted" id="birthday"/>
+        <input [(ngModel)]="objeto.birthdayFormatted" name="birthday" id="birthday" class="form-control" type="text" pInputText [textMask]="{mask: dateMask, guide: false}"/>
       </div>
       <div class="form-group">
         <label for="telephone">Telefone</label>
-        <input class="form-control" type="text" pInputText [(ngModel)]="objeto.telephone" id="telephone"/>
+        <input [(ngModel)]="objeto.telephone" name="telephone" id="telephone" class="form-control" type="text" pInputText  [textMask]="{mask: cellPhoneMask, guide: false}"/>
       </div>
     </div>
+    </form>
     <p-footer>
-      <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
+      <button type="button" class="btn btn-effect-ripple btn-success" (click)="persist()" [disabled]="!userForm.valid"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>
       <button type="button" class="btn btn-effect-ripple btn-info" (click)="displayEdit=false"><i class="fa fa-close"></i> Fechar</button>
     </p-footer>
   </p-dialog>

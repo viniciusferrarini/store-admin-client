@@ -7,5 +7,6 @@ export class User implements CrudEntity<number> {
   password: string;
   cpfCnpj: string;
   birthday: Date;
+  birthdayFormatted: string;
   telephone: string;
 }

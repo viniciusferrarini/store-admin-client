@@ -9,4 +9,5 @@ export class User implements CrudEntity<number> {
   birthday: Date;
   birthdayFormatted: string;
   telephone: string;
+  registerDate: Date;
 }

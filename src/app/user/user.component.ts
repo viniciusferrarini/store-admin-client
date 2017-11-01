@@ -21,6 +21,13 @@ export class UserComponent extends CrudController<User, number> implements OnIni
     super(toastr, vcr, userService, User);
   }
 
+  new() {
+    this.objeto = new User();
+    this.objeto.registerDate = new Date();
+    this.displayEdit = true;
+    this.acao = "Cadastro";
+  }
+
   cpfCnpjMask() {
     if(this.objeto.cpfCnpj !== undefined && this.objeto.cpfCnpj !== "") {
       let numbers = this.objeto.cpfCnpj.match(/\d/g);

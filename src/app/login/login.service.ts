@@ -49,7 +49,7 @@ export class LoginService implements CanActivate {
   setLoggedIn(res) {
     this.isLoggedIn.next(true);
     localStorage.setItem('access_token', res.access_token);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/dashboard']);
   }
 
   logout() {

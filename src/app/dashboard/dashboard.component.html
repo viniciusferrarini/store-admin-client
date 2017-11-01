@@ -1,3 +1,58 @@
-<p>
-  dashboard works!
-</p>
+<div class="page-title">
+  <h3 class="title">Bem Vindo,</h3>
+</div>
+<div class="row">
+  <div class="col-lg-4 col-sm-12">
+    <div class="widget-panel widget-style-2 white-bg">
+      <i class="fa fa-tags text-danger"></i>
+      <h2 class="m-0 counter">10</h2>
+      <div>Novas Vendas</div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-sm-12">
+    <div class="widget-panel widget-style-2 white-bg">
+      <i class="fa fa-dollar text-success"></i>
+      <h2 class="m-0 counter">R$10.000,00</h2>
+      <div>Em novas vendas</div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-sm-12">
+    <div class="widget-panel widget-style-2 white-bg">
+      <i class="fa fa-user-circle text-primary"></i>
+      <h2 class="m-0 counter">10</h2>
+      <div>Novos Clientes</div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="portlet"><!-- /primary heading -->
+      <div class="portlet-heading">
+        <h3 class="portlet-title text-dark text-uppercase">
+          Número de vendas por dia (ultimos 10 dias)
+        </h3>
+        <div class="clearfix"></div>
+      </div>
+      <div id="portlet2" class="panel-collapse collapse in">
+        <div class="portlet-body">
+          <div [style.height.px]="500"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="portlet"><!-- /primary heading -->
+      <div class="portlet-heading">
+        <h3 class="portlet-title text-dark text-uppercase">
+          Valor de vendas por dia (ultimos 10 dias)
+        </h3>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-collapse collapse in">
+        <div class="portlet-body">
+          <div id="chartTeste" [style.height.px]="500"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

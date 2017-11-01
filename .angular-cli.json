@@ -34,7 +34,10 @@
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "assets/js/menu.js"
+        "assets/js/menu.js",
+        "assets/js/plugin/amcharts/amcharts.js",
+        "assets/js/plugin/amcharts/serial.js",
+        "assets/js/plugin/amcharts/light.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

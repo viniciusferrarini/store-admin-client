@@ -9,7 +9,6 @@ import {SubCategoryComponent} from "../sub-category/sub-category.component";
 import {BrandComponent} from "../brand/brand.component";
 import {LoginService} from "../login/login.service";
 import {UserComponent} from "../user/user.component";
-import {BuyService} from "../buy/buy.service";
 import {BuyComponent} from "../buy/buy.component";
 
 const routes: Routes = [

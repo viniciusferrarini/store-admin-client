@@ -6,6 +6,8 @@ import {Buy} from "./buy";
 @Injectable()
 export class BuyService extends CrudService<Buy, number> {
 
+  httpClient: HttpClient;
+
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }
@@ -13,4 +15,6 @@ export class BuyService extends CrudService<Buy, number> {
   protected getUrl(): string {
     return "/buy";
   }
+
+
 }

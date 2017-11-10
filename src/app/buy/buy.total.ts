@@ -8,4 +8,6 @@ export class BuyTotal {
 
   chart: Chart[];
 
+  totalValueFormatted: string;
+
 }
